@@ -1,0 +1,95 @@
+/* Estilo del Sidebar */
+.sidebar {
+  position: fixed;
+  width: 220px; 
+  top: 0;
+  left: 0;
+  height: 100%; 
+  background: rgba(255, 255, 255, 0.9); 
+  padding-top: 20px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  transition: width 0.3s ease;
+}
+
+/* Contenedor del logo */
+.logo-container {
+  text-align: center;
+  padding: 10px;
+}
+
+.logo {
+  width: 100px; 
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Lista de navegación */
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar nav ul li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px ;
+  background-color: rgba(255, 216, 245, 0.9);
+  border-radius: 12px;
+  margin: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.sidebar nav ul li:hover {
+  background-color: #a52f9be3;
+  color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Iconos de menú */
+.sidebar nav ul li img {
+  width: 28px;
+  height: 28px;
+}
+
+/* Texto del menú */
+.sidebar nav ul li .menu-item-text {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.sidebar nav ul li:hover .menu-item-text {
+  color: #fff;
+}
+
+/* Contenedor principal */
+.app-container {
+  display: flex;
+}
+
+/* Contenido principal (se ajusta para no quedar solapado por el sidebar) */
+.contenido {
+  margin-left: 200px; /* Mismo ancho que el sidebar */
+  padding: 30px;
+  width: calc(100% - 220px);
+  min-height: 100vh;
+  background: #f4f4f4;
+  transition: margin-left 0.3s ease;
+}
+
+/* Efecto responsive */
+@media (max-width: 768px) {
+  .sidebar {
+      width: 180px;
+  }
+
+  .contenido {
+      margin-left: 180px;
+      width: calc(100% - 180px);
+  }
+}

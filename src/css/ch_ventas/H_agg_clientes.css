@@ -1,0 +1,186 @@
+.form-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #ffd8fc;
+  border-radius: 8px;
+}
+
+/* Espaciado entre campos */
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* Estilo de los inputs */
+.text-input{
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #bd0495;
+  border-radius: 6px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+}
+/* Cambia el borde y el sombreado cuando el input está seleccionado */
+.input:focus {
+  border: #c013c0; /* Morado */
+  box-shadow: 0 0 5px rgba(128, 0, 128, 0.5);
+  outline: none;
+}
+.num-input{
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #bd0495;
+  border-radius: 6px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.email-input{
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #bd0495;
+  border-radius: 6px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.cel-input{
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #bd0495;
+  border-radius: 6px;
+  transition: border-color 0.3s ease, box-shadow 0.3s eas
+  
+}
+.direccion-input{
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #bd0495;
+  border-radius: 6px;
+  transition: border-color 0.3s ease, box-shadow 0.3s eas
+}
+
+/* Estilo para el número de teléfono */
+.phone-input {
+  display: flex;
+  align-items: center;
+}
+
+.phone-input span {
+  background: #eee;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+}
+
+.phone-input input {
+  width: calc(100% - 60px);
+  border-radius: 0 4px 4px 0;
+}
+
+/* Estilos de los radio buttons */
+.radio-group label {
+  display: inline-block;
+  margin-right: 15px;
+  font-weight: normal;
+}
+
+/* Estilo del botón centrado */
+.button-container {
+  display: flex;
+  justify-content: center;
+  
+}
+
+.submit-btn {
+  background-color: #e44de9;
+  color: rgb(0, 0, 0);
+  padding: 10px  20px;
+  border: none;
+  width: 200px;
+  padding: 10px;
+  border-radius: 2cm;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  top: 15px;
+  position: relative;
+  left: 90px;
+}
+
+.submit-btn:hover {
+  background-color: #a01388;
+}
+.mensaje-exito {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color:rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  padding: 15px 30px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  font-size: 1.2rem;
+  font-weight: arial;
+  z-index: 1000;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.mensaje-exito.fade-out {
+  opacity: 0;
+}
+
+.radioim {
+  width: 18px;
+  height: 18px;
+  accent-color: #bd0495;
+  margin: 0;
+  cursor: pointer;
+  margin-left: auto;
+  
+}
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin: 1rem 0;
+}
+
+.radioim{
+  position: relative;
+  left: 50px;
+
+
+}
+.labeliden {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 5px;
+  
+}
+.h2de {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 100hv; /* Asegura que el contenedor tenga altura */
+}
+
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5em; /* Ajusta el tamaño del icono */
+  cursor: pointer;
+  position: relative;
+  left: 340px;
+}
+.selecbt{
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  padding: 6px 10px;
+  border: 1px solid #bd0495;
+  border-radius: 5px;
+
+}

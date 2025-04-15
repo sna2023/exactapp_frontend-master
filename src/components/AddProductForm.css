@@ -1,0 +1,158 @@
+.overlay {
+  position: fixed; /* Para que quede encima de todo */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.507); /* Fondo oscuro semitransparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Asegura que esté al frente */
+}
+
+.floating-form {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.form-content {
+  background: #ffd8fc;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  position: relative;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.form-content h3 {
+  margin-bottom: 20px;
+}
+
+
+
+.form-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-content label {
+  font-weight: bold;
+}
+
+.nombre-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #bd0495;
+  border-radius: 6px;
+  transition: border-color 0.3s ease, box-shadow 0.3s eas
+}
+.categoria-select{
+  width: 84%;
+  padding: 8px;
+  border: 1px solid #bd0495;
+  border-radius: 6px;
+  transition: border-color 0.3s ease, box-shadow 0.3s eas
+
+}
+.descripcion-input{
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #bd0495;
+  border-radius: 6px;
+  transition: border-color 0.3s ease, box-shadow 0.3s eas
+}
+.codigo-input{
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #bd0495;
+  border-radius: 6px;
+  transition: border-color 0.3s ease, box-shadow 0.3s eas
+}
+
+
+
+
+.save-btn {
+  background: #bc11df;
+  color: #000000;
+  padding: 10px;
+  border: none;
+  border-radius: 9px;
+  cursor: pointer;
+  width: 170px;
+  position: relative;
+  left: 90px;
+  top: -60px;
+}
+
+.save-btn:hover {
+  background: #8a0ca3;
+}
+
+.Costo-input{ 
+  position: relative;
+  width: 100px;
+  left: 50px;
+  padding: 8px;
+  border: 1px solid #bd0495;
+  border-radius: 6px;
+  transition: border-color 0.3s ease, box-shadow 0.3s eas
+}
+
+.precio-input{
+  position: relative;
+  width: 100px;
+  left: 200px;
+  top: -47px ;
+ 
+  padding: 8px;
+  border: 1px solid #bd0495;
+  border-radius: 6px;
+  transition: border-color 0.3s ease, box-shadow 0.3s eas
+
+}
+.stock-input{
+  position: relative;
+  width: 100px;
+  left: 50px;
+  top: -30px;
+  padding: 8px;
+  border: 1px solid #bd0495;
+  border-radius: 6px;
+  transition: border-color 0.3s ease, box-shadow 0.3s eas
+}
+.moneda-input{
+  position: relative;
+  width: 100px;
+  left: 200px;
+  top: -80px ;
+  padding: 8px;
+  border: 1px solid #bd0495;
+  border-radius: 6px;
+  transition: border-color 0.3s ease, box-shadow 0.3s eas
+  
+}
+
+
+.mas-button {
+  background-color: purple;
+  color: white;
+  border: none;
+  padding: 8px;
+  margin-left: 5px;
+  border-radius: 5px;
+  width: 50px;
+}
+.mas-button:hover{
+  transform: translateY(-1px);
+}

@@ -1,0 +1,123 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  border: 2px solid purple;
+  width: 100%;
+  height: 90%;
+}
+
+.productos-section {
+  border: 2px solid purple;
+  padding: 10px;
+  margin: 10px;
+  width: 45%;
+  
+  border-radius: 6px;
+}
+
+.carrito-button {
+  background-color: purple;
+  color: rgb(0, 0, 0);
+  display: block;
+  width: 200px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+}
+
+.categorias-section {
+  border: 2px solid purple;
+  padding: 10px;
+  margin: 10px;
+  width: 45%;
+  
+ 
+  border-radius: 6px;
+}
+
+.venta-section {
+  border: 2px solid purple;
+  padding: 10px;
+  margin: 10px;
+  width: 45%;
+  
+  border-radius: 6px;
+}
+
+h2, h3 {
+  text-align: center;
+}
+
+.cliente-input {
+  display: flex;
+  align-items: center;
+}
+
+.add-button {
+  background-color: purple;
+  color: white;
+  border: none;
+  padding: 5px;
+  margin-left: 5px;
+  border-radius: 5px;
+  width: 50px;
+}
+.add-button:hover{
+  transform: translateY(-1px);
+}
+
+
+.categoria {
+  display: inline-block;
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+/* Modal general */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 300px;
+  position: relative;
+}
+
+.client-list, .product-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.client-item, .product-item {
+  padding: 10px;
+  border-bottom: 1px solid purple;
+  cursor: pointer;
+}
+
+.client-item:hover, .product-item:hover {
+  background-color: #f2e6ff;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
