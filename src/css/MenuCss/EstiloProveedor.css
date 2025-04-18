@@ -1,158 +1,170 @@
 /* Estilos generales para la lista y el formulario */
 .container {
-    display: flex;
-    width: 80%; /* Ajusta el ancho según necesites */
-    margin: 20px auto; /* Centra el contenedor con margen superior e inferior */
-    border: 1px solid #ddd; /* Borde sutil para el contenedor */
-    border-radius: 8px; /* Bordes redondeados */
-    overflow: hidden; /* Evita que el contenido se salga del borde */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  }
-  
-  /* Estilos para la sección de la lista de proveedores */
-  .list-section {
-    flex: 1; /* Ocupa la mitad del espacio disponible */
-    padding: 20px;
-    border-right: 1px solid #eee; /* Separador visual */
-  }
-  
-  .list-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-  }
-  
-  .back-arrow-list {
-    font-size: 1.2em;
-    margin-right: 10px;
-    cursor: pointer;
-    color: #888;
-  }
-  
-  .list-title {
-    font-size: 1.5em;
-    color: #000000;
-  }
-  
-  .provider-item {
-    background-color: #f9f9f9;
-    border: 1px solid #eee;
-    border-radius: 6px;
-    padding: 10px 15px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .provider-item:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .provider-item.selected {
-    background-color: #e0b0ff; /* Morado claro */
-    border-color: #c778dd; /* Morado más oscuro */
-    color: #000000;
-  }
-  
-  /* Estilos para la sección del formulario de editar proveedor */
-  .edit-section {
-    flex: 1; /* Ocupa la mitad del espacio disponible */
-    padding: 20px;
-  }
-  
-  .edit-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .back-arrow-edit {
-    font-size: 1.2em;
-    margin-right: 10px;
-    cursor: pointer;
-    color: #888;
-  }
-  
-  .edit-title {
-    font-size: 1.5em;
-    color: #000000;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 5px;
-    color: #000000;
-    font-size: 0.9em;
-  }
-  
-  .form-group input[type="text"] {
-    width: calc(100% - 12px); /* Ajusta el ancho restando el padding */
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1em;
-  }
-  
-  .form-group input[type="text"]:focus {
-    outline: none;
-    border-color: #a78bfa; /* Morado claro al enfocar */
-    box-shadow: 0 0 3px rgba(167, 139, 250, 0.5);
-  }
-  
-  /* Estilos para la selección de tipo de proveedor */
-  .provider-type-group {
-    display: flex;
-    align-items: center;
-  }
-  
-  .radio-wrapper {
-    display: flex;
-    align-items: center;
-    margin-right: 15px;
-  }
-  
-  .radio-wrapper input[type="radio"] {
-    margin-right: 5px;
-    cursor: pointer;
-  }
-  
-  .radio-wrapper label {
-    font-size: 0.95em;
-    color: #000000;
-    cursor: pointer;
-  }
-  
-  .radio-wrapper input[type="radio"]:checked + label {
-    color: #555;
-    font-weight: bold;
-  }
-  
-  /* Estilo para el botón de guardar compra */
-  .save-button {
-    background-color: #e0b0ff; /* Morado claro */
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 12px 20px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 20px;
-  }
-  
-  .save-button:hover {
-    background-color: #c778dd; /* Morado más oscuro al pasar el ratón */
-  }
-  
-  .save-button:focus {
-    outline: none;
-    box-shadow: 0 0 4px rgba(167, 139, 250, 0.7);
-  }
-  
+  display: flex;
+  flex-direction: column; /* Cambia a columna para pantallas pequeñas */
+  width: 100%; /* Ajusta el ancho al 100% */
+  margin: 20px auto; /* Centra el contenedor con margen superior e inferior */
+  border: 1px solid #ddd; /* Borde sutil para el contenedor */
+  border-radius: 8px; /* Bordes redondeados */
+  overflow: hidden; /* Evita que el contenido se salga del borde */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+@media (min-width: 600px) {
+.container {
+  flex-direction: row; /* Para pantallas más grandes, cambia a disposición en fila */
+}
+}
+
+/* Estilos para la sección de la lista de proveedores */
+.list-section {
+  flex: 1; /* Ocupa la mitad del espacio disponible */
+  padding: 20px;
+  border-right: 1px solid #eee; /* Separador visual */
+}
+
+@media (max-width: 600px) {
+.list-section {
+  border-right: none; /* Elimina el borde derecho en pantallas pequeñas */
+}
+}
+
+.list-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.back-arrow-list {
+  font-size: 1.2em;
+  margin-right: 10px;
+  cursor: pointer;
+  color: #888;
+}
+
+.list-title {
+  font-size: 1.5em;
+  color: #000000;
+}
+
+.provider-item {
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.provider-item:hover {
+  background-color: #f0f0f0;
+}
+
+.provider-item.selected {
+  background-color: #e0b0ff; /* Morado claro */
+  border-color: #c778dd; /* Morado más oscuro */
+  color: #000000;
+}
+
+/* Estilos para la sección del formulario de editar proveedor */
+.edit-section {
+  flex: 1; /* Ocupa la mitad del espacio disponible */
+  padding: 20px;
+}
+
+.edit-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.back-arrow-edit {
+  font-size: 1.2em;
+  margin-right: 10px;
+  cursor: pointer;
+  color: #888;
+}
+
+.edit-title {
+  font-size: 1.5em;
+  color: #000000;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #000000;
+  font-size: 0.9em;
+}
+
+.form-group input[type="text"] {
+  width: calc(100% - 12px); /* Ajusta el ancho restando el padding */
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+.form-group input[type="text"]:focus {
+  outline: none;
+  border-color: #a78bfa; /* Morado claro al enfocar */
+  box-shadow: 0 0 3px rgba(167, 139, 250, 0.5);
+}
+
+/* Estilos para la selección de tipo de proveedor */
+.provider-type-group {
+  display: flex;
+  align-items: center;
+}
+
+.radio-wrapper {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.radio-wrapper input[type="radio"] {
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.radio-wrapper label {
+  font-size: 0.95em;
+  color: #000000;
+  cursor: pointer;
+}
+
+.radio-wrapper input[type="radio"]:checked + label {
+  color: #555;
+  font-weight: bold;
+}
+
+/* Estilo para el botón de guardar compra */
+.save-button {
+  background-color: #e0b0ff; /* Morado claro */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.save-button:hover {
+  background-color: #c778dd; /* Morado más oscuro al pasar el ratón */
+}
+
+.save-button:focus {
+  outline: none;
+  box-shadow: 0 0 4px rgba(167, 139, 250, 0.7);
+}

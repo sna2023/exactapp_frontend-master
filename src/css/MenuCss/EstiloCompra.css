@@ -1,16 +1,24 @@
 .container {
   display: flex;
+  flex-wrap: wrap;
   border: 2px solid #d48cf3;
   border-radius: 10px;
   font-family: 'Arial', sans-serif;
   overflow: hidden;
-  height: 620px;
-
+  box-sizing: border-box;
+  height: auto;
 }
 
-.cart-section {
+/* Secciones principales */
+.cart-section,
+.payment-section {
   width: 50%;
   padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Línea divisoria solo visible en pantallas grandes */
+.cart-section {
   border-right: 2px solid #d48cf3;
 }
 
@@ -40,7 +48,8 @@
   border: 2px solid #d48cf3;
   border-radius: 5px;
   font-size: 14px;
-} 
+  width: 100%;
+}
 
 .provider-row {
   display: flex;
@@ -48,13 +57,15 @@
   gap: 10px;
   border: 2px solid #d48cf3;
   border-radius: 5px;
+  padding: 5px;
 }
-.provider-row input{
-  width: 400px;
+
+.provider-row input {
+  flex: 1;
   border: none;
   background: #f2e6ff00;
   outline: none;
-  transition: all 0.3s ease;
+  font-size: 14px;
 }
 
 .add-button {
@@ -90,6 +101,7 @@
   border: 2px solid #d48cf3;
   border-radius: 10px;
   padding: 10px;
+  font-size: 14px;
 }
 
 .cart-summary {
@@ -100,6 +112,8 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .summary-row input {
@@ -113,33 +127,29 @@
 .cart-buttons {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
   margin-top: 20px;
+}
+
+.extract-button,
+.payment-button {
+  flex: 1;
+  min-width: 120px;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  color: white;
 }
 
 .extract-button {
   background-color: red;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  font-weight: bold;
-  border-radius: 10px;
-  cursor: pointer;
 }
 
 .payment-button {
   background-color: #a55de0;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  font-weight: bold;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-.payment-section {
-  width: 50%;
-  background-color: #fdf2ff;
-  padding: 30px;
 }
 
 .payment-header {
@@ -161,11 +171,13 @@
 .payment-methods {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 
 .method {
   flex: 1;
+  min-width: 120px;
   padding: 15px;
   background-color: white;
   border: 2px solid #d48cf3;
@@ -192,4 +204,49 @@
   color: #a55de0;
   font-weight: bold;
   cursor: pointer;
+}
+
+/* 🟣 MEDIA QUERIES: ADAPTACIÓN PARA TELÉFONOS */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .cart-section,
+  .payment-section {
+    width: 100%;
+    padding: 15px;
+    border-right: none;
+    border-bottom: 2px solid #d48cf3;
+  }
+
+  .payment-section {
+    border-bottom: none;
+  }
+
+  .table-header {
+    grid-template-columns: repeat(3, 1fr);
+    font-size: 14px;
+  }
+
+  .summary-row input {
+    width: 100%;
+  }
+
+  .cart-buttons {
+    flex-direction: column;
+  }
+
+  .extract-button,
+  .payment-button {
+    width: 100%;
+  }
+
+  .payment-methods {
+    flex-direction: column;
+  }
+
+  .method {
+    width: 100%;
+  }
 }

@@ -1,64 +1,104 @@
 .producto-container {
-    padding: 20px;
-    border: 2px solid #d8b4e2;
-    border-radius: 10px;
-    box-sizing: border-box;
-    max-width: 100%;
-    width: 100%;
-    margin: 0 auto; /* Centrar el contenedor */
+  padding: 15px;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  box-sizing: border-box;
+  max-width: 100%;
+  width: 100%;
+  margin: 10px auto;
+  overflow-x: auto;
+  display: flex;
+  flex-direction: column; /* Mostrar elementos en columna */
+  gap: 10px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: #000000;
+}
+
+.add-product-button {
+  background-color: #d8b4e2;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: rgb(0, 0, 0);
+  width: 100%;
+  max-width: 200px;
+  margin: 0 auto;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.product-table th,
+.product-table td {
+  border: 1px solid #d8b4e2;
+  padding: 8px;
+  text-align: center;
+}
+
+.product-table th {
+  background-color: #f0f0f0;
+  color: #000000;
+}
+
+.product-table td {
+  background-color: #f8d7fa;
+  color: #000000;
+}
+
+.product-table tr:nth-child(odd) td {
+  background-color: #c3e6c3;
+}
+
+.product-icon {
+  margin-right: 3px;
+  font-size: 0.9rem;
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #ff4d4d;
+  padding: 5px;
+}
+
+/* Responsive: mostrar en columna en pantallas pequeñas */
+@media (max-width: 600px) {
+  .producto-container {
+    flex-direction: column;
+    gap: 10px;
   }
-  
-  h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-  }
-  
+
   .add-product-button {
-    background-color: #d8b4e2;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    cursor: pointer;
-    display: block; /* Cambio a bloque para que el botón se ajuste al contenedor */
-    margin: 20px auto 10px auto; /* Centrado del botón */
-  }
-  
-  .product-table {
+    font-size: 0.8rem;
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
   }
-  
+
+  .product-table {
+    font-size: 0.75rem;
+  }
+
   .product-table th,
   .product-table td {
-    border: 1px solid #d8b4e2;
-    padding: 10px;
-    text-align: center;
+    padding: 6px;
   }
-  
-  .product-table th {
-    background-color: #f0f0f0;
-  }
-  
-  .product-table td {
-    background-color: #f8d7fa; /* Estilo predeterminado */
-  }
-  
-  .product-table tr:nth-child(odd) td {
-    background-color: #c3e6c3; /* Estilo para categorías alternas */
-  }
-  
+
   .product-icon {
-    margin-right: 5px;
+    font-size: 0.8rem;
   }
-  
+
   .delete-button {
-    background: none;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    color: #ff4d4d;
+    font-size: 0.9rem;
   }
-  
- 
+}

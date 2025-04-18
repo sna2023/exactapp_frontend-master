@@ -1,3 +1,4 @@
+/* Contenedor principal */
 .profile-container {
   max-width: 500px;
   margin: auto;
@@ -7,11 +8,13 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.116);
 }
 
+/* Título */
 .h2 {
   text-align: center;
   margin-bottom: 20px;
 }
 
+/* Grupo de formulario */
 .form-group {
   margin-bottom: 15px;
 }
@@ -23,28 +26,30 @@
 }
 
 .form-group input {
-  width: 95%;
+  width: 100%;
   padding: 10px;
   border: 1px solid #bd0495;
   border-radius: 5px;
+  box-sizing: border-box;
 }
-.select {
-  width: 50%;
+
+/* Selects */
+.select, .select2 {
+  width: 100%;
+  padding: 10px;
   border: 1px solid #bd0495;
   border-radius: 5px;
+  box-sizing: border-box;
 }
-.select2 {
-  width: 98%;
-  border: 1px solid #bd0495;
-  border-radius: 5px;
-}
+
+/* Contenedor para inputs tipo celular */
 .celular {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-
+/* Fila de formulario */
 .form-row {
   display: flex;
   flex-wrap: wrap;
@@ -53,13 +58,12 @@
 
 .form-row .form-group {
   flex: 1;
+  min-width: 100px;
 }
 
-/* 🔹 Centrar y hacer responsivo el botón */
-
+/* Botón estilizado */
 .bt {
   width: 100%;
-  max-width: 250px; 
   padding: 10px;
   color: rgb(0, 0, 0);
   border: 1px solid #bd0495;
@@ -67,15 +71,15 @@
   border-radius: 20px;
   transition: background-color 0.3s ease;
   font-size: 16px;
-  position: relative;
-  left: 100px;
+  margin: 20px auto 0;
+  display: block;
 }
 
 .bt:hover {
   background-color: #a82398;
 }
 
-/* 🔹 Imagen del perfil */
+/* Imagen del perfil */
 .profile-image {
   display: block;
   margin: 0 auto 20px;
@@ -85,18 +89,22 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* 🔹 Responsividad para móviles */
+/* Media query para móviles */
 @media (max-width: 500px) {
   .profile-container {
-      padding: 15px;
+    padding: 15px;
   }
 
   .form-row {
-      flex-direction: column;
+    flex-direction: column;
   }
 
-  button {
-      width: 100%;
-      max-width: 200px; /* Ajuste en móviles */
+  .bt {
+    max-width: 100%;
+    font-size: 14px;
+  }
+
+  .profile-image {
+    width: 120px;
   }
 }

@@ -1,87 +1,101 @@
+/* Estilos generales */
 .container {
   display: flex;
   flex-wrap: wrap;
-  border: 2px solid purple;
-  height:700px;
-  
-
+  border: 1px solid purple; /* Reducir el grosor del borde */
+  border-radius: 8px; /* Reducir el radio del borde */
+  margin: 10px; /* Añadir margen alrededor del contenedor */
 }
 
-.productos-section {
-  border: 2px solid purple;
-  padding: 10px;
-  margin: 10px;
-  width: 45%;
-  height: 300px;
-  border-radius: 6px;
-  position: relative;
-  top: -350px;
-}
-.categorias-section {
-  border: 2px solid purple;
-  padding: 10px;
-  margin: 10px;
-  width: 45%;
-  height:640px;
-  border-radius: 6px;
-  
-}
+.productos-section,
+.categorias-section,
 .venta-section {
-  border: 2px solid purple;
+  border: 1px solid purple; /* Reducir el grosor del borde */
   padding: 10px;
   margin: 10px;
-  width: 45%;
-  height: 300px;
+  width: calc(100% - 20px); /* Ocupar todo el ancho en móviles */
+  max-width: 45%; /* Mantener un ancho máximo en pantallas más grandes */
   border-radius: 6px;
+  box-sizing: border-box; /* Incluir padding y border en el ancho */
+  position: static !important; /* Remover posicionamiento absoluto/relativo innecesario en móviles */
+  top: auto !important;
+  left: auto !important;
+  height: auto; /* Ajustar altura automáticamente */
 }
 
+.categorias-section {
+  height: auto; /* Ajustar altura automáticamente */
+}
 
 .carrito-button {
   background-color: purple;
-  color: rgb(0, 0, 0);
+  color: white; /* Cambiar color del texto para mejor contraste */
   display: block;
-  width: 200px;
+  width: 80%; /* Ocupar un porcentaje del ancho en móviles */
+  max-width: 200px; /* Mantener un ancho máximo */
   height: 30px;
   border: none;
   cursor: pointer;
-  margin-left: 5px;
+  margin: 15px auto; /* Centrar horizontalmente con margen vertical */
   border-radius: 5px;
-  position:relative;
-  left: 110px;
-  top:170px;
+  position: static !important; /* Remover posicionamiento absoluto/relativo innecesario en móviles */
+  left: auto !important;
+  top: auto !important;
+  font-size: 0.9em; /* Reducir tamaño de la fuente */
 }
 
-h2, h3 {
+h2,
+h3 {
   text-align: center;
+  font-size: 1.2em; /* Reducir tamaño de la fuente */
 }
 
 .cliente-input {
   display: flex;
   align-items: center;
+  border: 1px solid purple; /* Reducir grosor del borde */
+  width: 100%; /* Ocupar todo el ancho */
+  height: auto; /* Ajustar altura automáticamente */
+  border-radius: 5px;
+  margin-bottom: 10px; /* Añadir margen inferior */
+  position: static !important; /* Remover posicionamiento absoluto/relativo innecesario en móviles */
+  top: auto !important;
+}
+
+.cliente-input input {
+  border: none;
+  width: calc(100% - 60px); /* Ocupar el ancho restante menos el botón */
+  height: 30px;
+  background: transparent;
+  outline: none;
+  padding: 5px;
+  font-size: 0.9em; /* Reducir tamaño de la fuente */
 }
 
 .add-button {
   background-color: purple;
-  color: rgb(0, 0, 0);
+  color: white; /* Cambiar color del texto */
   border: none;
   padding: 5px;
   cursor: pointer;
- 
   border-radius: 5px;
-  width: 50px;
+  width: 40px; /* Reducir ancho del botón */
   height: 30px;
+  font-size: 0.8em; /* Reducir tamaño de la fuente */
+  margin-left: 5px;
 }
-.add-button:hover{
+
+.add-button:hover {
   transform: translateY(-1px);
 }
 
-
 .categoria {
   display: inline-block;
-  padding: 10px;
+  padding: 8px; /* Reducir padding */
   margin: 5px;
   border: 1px solid black;
   border-radius: 5px;
+  font-size: 0.85em; /* Reducir tamaño de la fuente */
 }
 
 /* Modal general */
@@ -95,88 +109,139 @@ h2, h3 {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1000; /* Asegurar que esté por encima de otros elementos */
 }
 
 .modal {
   background-color: white;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 15px; /* Reducir padding */
+  border-radius: 8px; /* Reducir radio del borde */
   text-align: center;
-  width: 300px;
+  width: 80%; /* Ocupar un porcentaje del ancho en móviles */
+  max-width: 300px; /* Mantener un ancho máximo */
   position: relative;
 }
 
-.client-list, .product-list {
-  max-height: 200px;
+.client-list,
+.product-list {
+  max-height: 150px; /* Reducir altura máxima */
   overflow-y: auto;
 }
 
-.client-item, .product-item {
-  padding: 10px;
+.client-item,
+.product-item {
+  padding: 8px; /* Reducir padding */
   border-bottom: 1px solid purple;
   cursor: pointer;
+  font-size: 0.9em; /* Reducir tamaño de la fuente */
 }
 
-.client-item:hover, .product-item:hover {
+.client-item:hover,
+.product-item:hover {
   background-color: #f2e6ff;
 }
 
 .close-button {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 5px; /* Ajustar posición */
+  right: 5px; /* Ajustar posición */
   background: none;
   border: none;
-  font-size: 20px;
+  font-size: 1.2em; /* Reducir tamaño de la fuente */
   cursor: pointer;
+  color: #555; /* Añadir color para mejor visibilidad */
 }
 
-
-
-.Nfactura-input{
-  border: 1px solid purple;
+.Nfactura-input,
+.fecha-input {
+  border: 1px solid purple; /* Reducir grosor del borde */
   border-radius: 5px;
-  width: 150px;
+  width: calc(50% - 15px); /* Ocupar la mitad del ancho con margen */
   height: 30px;
-  position:relative;
-  left: 100px;
-  top: 20px;
-  
-}
-.fecha-input{
-  border: 1px solid purple;
-  border-radius: 5px;
-  width: 150px;
-  height: 30px;
-  position:relative;
-  left: 190px;
-  top: 20px;
-  
-}
-.venta-section label{
-  position: relative;
-  left: 60px;
-  top: 20px;
+  position: static !important; /* Remover posicionamiento absoluto/relativo innecesario en móviles */
+  left: auto !important;
+  top: auto !important;
+  margin-right: 5px;
+  box-sizing: border-box; /* Incluir padding y border en el ancho */
+  font-size: 0.9em; /* Reducir tamaño de la fuente */
 }
 
-
-
-
-.cliente-input{
-  border: 1px solid purple;
-  width: 45 0px;
-  height: 40px;
-  border-radius: 5px;
-
-  position: relative;
-  top: 40px;
+.venta-section label {
+  position: static !important; /* Remover posicionamiento absoluto/relativo innecesario en móviles */
+  left: auto !important;
+  top: auto !important;
+  display: block; /* Hacer que las etiquetas ocupen una línea */
+  margin-bottom: 5px; /* Añadir margen inferior a las etiquetas */
+  font-size: 0.9em; /* Reducir tamaño de la fuente */
 }
-.cliente-input input {
-  border: none;
-  width: 400px;
-  height: 30px;
-  background: #f2e6ff00;
-  
-  outline: none;
-  transition: all 0.3s ease;
+
+/* Media query para pantallas de teléfono (ancho máximo de 600px) */
+@media (max-width: 600px) {
+  .container {
+    flex-direction: column; /* Apilar elementos verticalmente */
+  }
+
+  .productos-section,
+  .categorias-section,
+  .venta-section {
+    width: calc(100% - 20px); /* Ocupar todo el ancho con margen */
+    max-width: none; /* Remover ancho máximo */
+    top: auto !important; /* Asegurar la posición normal */
+    left: auto !important; /* Asegurar la posición normal */
+    margin: 10px auto; /* Centrar horizontalmente */
+    height: auto; /* Ajustar altura automáticamente */
+  }
+
+  .carrito-button {
+    width: 90%; /* Ocupar más ancho en pantallas pequeñas */
+    margin: 15px auto; /* Centrar */
+  }
+
+  .cliente-input {
+    width: 100%;
+  }
+
+  .Nfactura-input,
+  .fecha-input {
+    width: calc(100% - 10px); /* Ocupar todo el ancho con margen */
+    margin-right: 0;
+    margin-bottom: 5px;
+  }
+}
+
+/* Media query para pantallas aún más pequeñas (ancho máximo de 320px) */
+@media (max-width: 320px) {
+  h2,
+  h3 {
+    font-size: 1em;
+  }
+
+  .categoria {
+    font-size: 0.8em;
+    padding: 6px;
+    margin: 3px;
+  }
+
+  .carrito-button {
+    font-size: 0.8em;
+    padding: 8px;
+  }
+
+  .cliente-input input {
+    font-size: 0.8em;
+  }
+
+  .add-button {
+    font-size: 0.7em;
+    width: 30px;
+  }
+
+  .Nfactura-input,
+  .fecha-input {
+    font-size: 0.8em;
+  }
+
+  .venta-section label {
+    font-size: 0.8em;
+  }
 }

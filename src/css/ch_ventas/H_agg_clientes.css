@@ -1,125 +1,175 @@
+/* H_agg_clientes.css */
+
 .form-container {
-  max-width: 600px;
-  margin: 20px auto;
+  width: 95%; /* Adaptable al ancho del contenedor padre */
+  max-width: 600px; /* Ancho máximo para pantallas grandes */
+  margin: 20px auto; /* Centrar el formulario en la pantalla */
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: #ffd8fc;
   border-radius: 8px;
+  box-sizing: border-box; /* Incluir padding y border en el width */
+  position: relative; /* Para posicionar el botón de cerrar */
 }
 
-/* Espaciado entre campos */
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #000000;
+}
+
+.close-btn:hover {
+  color: #333;
+}
+
+.h2de {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #000000;
+}
+
 .form-group {
   margin-bottom: 15px;
 }
 
-/* Estilo de los inputs */
-.text-input{
-  width: 100%;
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #000000;
+  font-size: 0.9em;
+}
+
+.text-input,
+.num-input,
+.email-input,
+.cel-input,
+.direccion-input,
+.selecbt {
+  width: calc(100% - 16px); /* Ancho completo menos el borde */
   padding: 8px;
   border: 1px solid #bd0495;
   border-radius: 6px;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
-
+  box-sizing: border-box;
+  font-size: 1em;
 }
-/* Cambia el borde y el sombreado cuando el input está seleccionado */
-.input:focus {
-  border: #c013c0; /* Morado */
+
+.text-input:focus,
+.num-input:focus,
+.email-input:focus,
+.cel-input:focus,
+.direccion-input:focus,
+.selecbt:focus {
+  border-color: #c013c0;
   box-shadow: 0 0 5px rgba(128, 0, 128, 0.5);
   outline: none;
 }
-.num-input{
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #bd0495;
-  border-radius: 6px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-.email-input{
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #bd0495;
-  border-radius: 6px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-.cel-input{
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #bd0495;
-  border-radius: 6px;
-  transition: border-color 0.3s ease, box-shadow 0.3s eas
-  
-}
-.direccion-input{
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #bd0495;
-  border-radius: 6px;
-  transition: border-color 0.3s ease, box-shadow 0.3s eas
+.selecbt{
+  width: 100px;
 }
 
-/* Estilo para el número de teléfono */
 .phone-input {
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
 .phone-input span {
   background: #eee;
-  padding: 8px;
+  padding: 8px 10px;
+  font-size: 0.9em;
+  min-width: auto;
+  text-align: center;
   border: 1px solid #ddd;
   border-right: none;
   border-radius: 4px 0 0 4px;
 }
 
 .phone-input input {
-  width: calc(100% - 60px);
+  flex: 1;
+  padding: 8px;
   border-radius: 0 4px 4px 0;
+  border: 1px solid #bd0495;
+  border-left: none;
+  box-sizing: border-box;
+  font-size: 1em;
 }
 
-/* Estilos de los radio buttons */
-.radio-group label {
-  display: inline-block;
-  margin-right: 15px;
-  font-weight: normal;
-}
-
-/* Estilo del botón centrado */
-.button-container {
+.radio-group {
   display: flex;
-  justify-content: center;
-  
+  flex-direction: column;
+  gap: 0.8rem;
+  margin: 1rem 0;
+}
+
+.radio-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.radioim {
+  width: 18px;
+  height: 18px;
+  accent-color: #bd0495;
+  margin-left: 10px;
+}
+
+.radio-group2 {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.radio-group2 label {
+  display: flex;
+  align-items: center;
+  font-size: 0.9em;
+}
+
+.radio-group2 input {
+  margin-right: 5px;
+  accent-color: #bd0495;
 }
 
 .submit-btn {
   background-color: #e44de9;
-  color: rgb(0, 0, 0);
-  padding: 10px  20px;
+  color: black;
+  padding: 10px 20px;
   border: none;
-  width: 200px;
-  padding: 10px;
-  border-radius: 2cm;
+  width: 100%;
+  max-width: 250px;
+  border-radius: 20px;
   cursor: pointer;
-  transition: background 0.3s ease;
-  top: 15px;
-  position: relative;
-  left: 90px;
+  transition: background-color 0.3s ease;
+  display: block; /* Para centrar con margin auto */
+  margin: 20px auto 0; /* Centrar horizontalmente */
+  font-size: 1em;
 }
 
 .submit-btn:hover {
   background-color: #a01388;
+  color: white;
 }
+
 .mensaje-exito {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color:rgb(255, 255, 255);
-  color: rgb(0, 0, 0);
+  background-color: white;
+  color: black;
   padding: 15px 30px;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  font-size: 1.2rem;
-  font-weight: arial;
+  font-size: 1rem;
+  font-weight: normal;
   z-index: 1000;
   opacity: 1;
   transition: opacity 0.5s ease-in-out;
@@ -129,58 +179,73 @@
   opacity: 0;
 }
 
-.radioim {
-  width: 18px;
-  height: 18px;
-  accent-color: #bd0495;
-  margin: 0;
-  cursor: pointer;
-  margin-left: auto;
-  
-}
-.radio-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  margin: 1rem 0;
-}
+/* Adaptabilidad para pantallas de teléfono */
+@media (max-width: 600px) {
+  .form-container {
+    padding: 15px;
+    margin: 10px auto;
+  }
 
-.radioim{
-  position: relative;
-  left: 50px;
+  .h2de {
+    font-size: 1.3em;
+    margin-bottom: 15px;
+  }
 
+  .form-group {
+    margin-bottom: 10px;
+  }
 
-}
-.labeliden {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  margin-bottom: 5px;
-  
-}
-.h2de {
-  display: flex;
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
-  height: 100hv; /* Asegura que el contenedor tenga altura */
-}
+  .form-group label {
+    font-size: 0.85em;
+  }
 
+  .text-input,
+  .num-input,
+  .email-input,
+  .cel-input,
+  .direccion-input,
+  .selecbt,
+  .phone-input input {
+    font-size: 0.95em;
+    padding: 6px;
+  }
 
-.close-btn {
-  background: none;
-  border: none;
-  font-size: 1.5em; /* Ajusta el tamaño del icono */
-  cursor: pointer;
-  position: relative;
-  left: 340px;
-}
-.selecbt{
-  background-color: #ffffff;
-  color: rgb(0, 0, 0);
-  padding: 6px 10px;
-  border: 1px solid #bd0495;
-  border-radius: 5px;
+  .phone-input span {
+    font-size: 0.9em;
+    padding: 6px 8px;
+  }
 
+  .radio-group {
+    gap: 0.5rem;
+  }
+
+  .radio-item {
+    font-size: 0.9em;
+  }
+
+  .radio-group2 {
+    flex-direction: column; /* Apilar los tipos de cliente en pantallas pequeñas */
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .radio-group2 label {
+    font-size: 0.9em;
+  }
+
+  .submit-btn {
+    font-size: 0.95em;
+    padding: 8px 15px;
+  }
+
+  .mensaje-exito {
+    font-size: 0.9rem;
+    padding: 10px 20px;
+  }
+
+  .close-btn {
+    font-size: 1.2em;
+    top: 5px;
+    right: 5px;
+  }
 }

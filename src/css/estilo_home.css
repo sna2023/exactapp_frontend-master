@@ -1,30 +1,31 @@
-/* Estilo del Sidebar */
+/* Estilo del Sidebar adaptable */
 .sidebar {
   position: fixed;
-  width: 220px; 
   top: 0;
   left: 0;
-  height: 100%; 
-  background: rgba(255, 255, 255, 0.9); 
+  height: 100%;
+  background: rgba(255, 255, 255, 0.9);
   padding-top: 20px;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(8px);
-  transition: width 0.3s ease;
+  transition: left 0.3s ease, width 0.3s ease;
+  z-index: 100;
+  width: 250px;
 }
 
-/* Contenedor del logo */
+/* Contenedor del logo adaptable */
 .logo-container {
   text-align: center;
   padding: 10px;
 }
 
 .logo {
-  width: 100px; 
+  width: 80px;
   height: auto;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
-/* Lista de navegación */
+/* Lista de navegación adaptable */
 .sidebar nav ul {
   list-style: none;
   padding: 0;
@@ -34,31 +35,32 @@
 .sidebar nav ul li {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 9px ;
+  gap: 8px;
+  padding: 8px;
   background-color: rgba(255, 216, 245, 0.9);
-  border-radius: 12px;
-  margin: 10px;
+  border-radius: 10px;
+  margin: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
+  position: relative; /* Necesario para el tooltip */
 }
 
 .sidebar nav ul li:hover {
   background-color: #a52f9be3;
   color: #fff;
-  transform: scale(1.05);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.03);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Iconos de menú */
+/* Iconos de menú adaptables */
 .sidebar nav ul li img {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
 }
 
-/* Texto del menú */
+/* Texto del menú adaptable */
 .sidebar nav ul li .menu-item-text {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   color: #333;
 }
@@ -67,29 +69,98 @@
   color: #fff;
 }
 
-/* Contenedor principal */
+/* Contenedor principal adaptable */
 .app-container {
   display: flex;
+  transition: margin-left 0.3s ease;
 }
 
-/* Contenido principal (se ajusta para no quedar solapado por el sidebar) */
+/* Contenido principal adaptable */
 .contenido {
-  margin-left: 200px; /* Mismo ancho que el sidebar */
-  padding: 30px;
-  width: calc(100% - 220px);
+  margin-left: 250px;
+  padding: 20px;
+  width: calc(100% - 250px);
   min-height: 100vh;
   background: #f4f4f4;
   transition: margin-left 0.3s ease;
 }
 
-/* Efecto responsive */
+/* Estilos para pantallas más pequeñas (móviles) */
 @media (max-width: 768px) {
   .sidebar {
-      width: 180px;
+      width: 60px;
+      overflow-x: hidden;
+  }
+
+  .logo-container {
+      padding: 8px 5px;
+  }
+
+  .logo {
+      width: 40px;
+  }
+
+  .sidebar nav ul li {
+      padding: 8px 5px;
+      margin: 5px;
+      border-radius: 50%;
+      justify-content: center;
+      position: relative; /* Asegurar que el tooltip se posicione correctamente */
+  }
+
+  .sidebar nav ul li .menu-item-text {
+      display: none; /* Ocultar el texto principal */
   }
 
   .contenido {
-      margin-left: 180px;
-      width: calc(100% - 180px);
+      margin-left: 60px;
+      padding: 15px;
+      width: calc(100% - 60px);
+  }
+
+  /* Estilo para el tooltip */
+  .sidebar nav ul li::before {
+      content: attr(data-tooltip); /* Obtiene el texto del atributo data-tooltip */
+      position: absolute;
+      left: 70px; /* Ajusta la posición horizontal */
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0; /* Inicialmente oculto */
+      visibility: hidden; /* Inicialmente oculto */
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 101; /* Asegura que esté por encima del sidebar */
+  }
+
+  .sidebar nav ul li:hover::before {
+      opacity: 1; /* Mostrar al hacer hover */
+      visibility: visible;
+  }
+}
+
+/* Estilos para pantallas aún más pequeñas (algunos móviles) */
+@media (max-width: 480px) {
+  .sidebar {
+      width: 50px;
+  }
+
+  .logo {
+      width: 35px;
+  }
+
+  .contenido {
+      margin-left: 50px;
+      padding: 10px;
+      width: calc(100% - 50px);
+  }
+
+  /* Ajustar la posición del tooltip en pantallas más pequeñas si es necesario */
+  .sidebar nav ul li::before {
+      left: 60px; /* Ajustar según el ancho del sidebar */
   }
 }
