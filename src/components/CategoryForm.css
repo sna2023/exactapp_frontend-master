@@ -57,8 +57,7 @@
   margin-bottom: 0.25rem;
 }
 
-.input,
-.input-number {
+.input {
   width: 100%;
   padding: 0.5rem 1rem;
   border: 1px solid #d1d5db;
@@ -66,11 +65,17 @@
   transition: border 0.2s, box-shadow 0.2s;
 }
 
-.input:focus,
-.input-number:focus {
+.input:focus {
   border-color: transparent;
   outline: none;
   box-shadow: 0 0 0 2px black;
+}
+
+.variations-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-top: 0.5rem;
 }
 
 .checkbox-container {
@@ -78,85 +83,51 @@
   align-items: center;
 }
 
-.checkbox-container input[type="checkbox"] {
+.checkbox {
   width: 1rem;
   height: 1rem;
-  accent-color: black;
+  accent-color: #a78bfa; /* Morado claro */
   border: 1px solid #d1d5db;
   border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.checkbox:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #a78bfa; /* Morado claro focus */
 }
 
 .checkbox-container label {
   margin-left: 0.5rem;
   font-size: 0.875rem;
   color: #374151;
-}
-
-.alert-error {
-  margin-top: 1rem;
-  padding: 0.75rem;
-  background-color: #fef2f2;
-  color: #b91c1c;
-  border-radius: 0.5rem;
-  font-size: 0.875rem;
-}
-
-.alert-success {
-  margin-top: 1rem;
-  padding: 0.75rem;
-  background-color: #ecfdf5;
-  color: #065f46;
-  border-radius: 0.5rem;
-  font-size: 0.875rem;
+  cursor: pointer;
 }
 
 .button-group {
   display: flex;
   justify-content: flex-end;
-  gap: 0.75rem;
   margin-top: 1.5rem;
 }
 
 .button {
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
   font-weight: 500;
   transition: background-color 0.2s ease-in-out;
-}
-
-.button.cancel {
-  border: 1px solid #d1d5db;
-  background-color: white;
-  color: #374151;
-}
-
-.button.cancel:hover {
-  background-color: #f9fafb;
+  border: none;
+  cursor: pointer;
 }
 
 .button.submit {
-  background-color: black;
+  background-color: #a78bfa; /* Morado claro */
   color: white;
 }
 
 .button.submit:hover {
-  background-color: #1f2937;
+  background-color: #8b5cf6; /* Morado más oscuro */
 }
 
-.button.submit:disabled {
-  background-color: #9ca3af;
-  cursor: not-allowed;
-}
-
-.spinner {
-  animation: spin 1s linear infinite;
-  width: 1rem;
-  height: 1rem;
-  margin-right: 0.5rem;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+.guardar-button {
+  font-size: 1rem;
 }
