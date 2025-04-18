@@ -2,8 +2,9 @@
   display: flex;
   flex-wrap: wrap;
   border: 2px solid purple;
-  width: 100%;
-  height: 90%;
+  height:700px;
+  
+
 }
 
 .productos-section {
@@ -11,37 +12,43 @@
   padding: 10px;
   margin: 10px;
   width: 45%;
+  height: 300px;
+  border-radius: 6px;
+  position: relative;
+  top: -350px;
+}
+.categorias-section {
+  border: 2px solid purple;
+  padding: 10px;
+  margin: 10px;
+  width: 45%;
+  height:640px;
+  border-radius: 6px;
   
+}
+.venta-section {
+  border: 2px solid purple;
+  padding: 10px;
+  margin: 10px;
+  width: 45%;
+  height: 300px;
   border-radius: 6px;
 }
+
 
 .carrito-button {
   background-color: purple;
   color: rgb(0, 0, 0);
   display: block;
   width: 200px;
-  height: 40px;
+  height: 30px;
   border: none;
   cursor: pointer;
-}
-
-.categorias-section {
-  border: 2px solid purple;
-  padding: 10px;
-  margin: 10px;
-  width: 45%;
-  
- 
-  border-radius: 6px;
-}
-
-.venta-section {
-  border: 2px solid purple;
-  padding: 10px;
-  margin: 10px;
-  width: 45%;
-  
-  border-radius: 6px;
+  margin-left: 5px;
+  border-radius: 5px;
+  position:relative;
+  left: 110px;
+  top:170px;
 }
 
 h2, h3 {
@@ -55,12 +62,14 @@ h2, h3 {
 
 .add-button {
   background-color: purple;
-  color: white;
+  color: rgb(0, 0, 0);
   border: none;
   padding: 5px;
-  margin-left: 5px;
+  cursor: pointer;
+ 
   border-radius: 5px;
   width: 50px;
+  height: 30px;
 }
 .add-button:hover{
   transform: translateY(-1px);
@@ -120,4 +129,54 @@ h2, h3 {
   border: none;
   font-size: 20px;
   cursor: pointer;
+}
+
+
+
+.Nfactura-input{
+  border: 1px solid purple;
+  border-radius: 5px;
+  width: 150px;
+  height: 30px;
+  position:relative;
+  left: 100px;
+  top: 20px;
+  
+}
+.fecha-input{
+  border: 1px solid purple;
+  border-radius: 5px;
+  width: 150px;
+  height: 30px;
+  position:relative;
+  left: 190px;
+  top: 20px;
+  
+}
+.venta-section label{
+  position: relative;
+  left: 60px;
+  top: 20px;
+}
+
+
+
+
+.cliente-input{
+  border: 1px solid purple;
+  width: 45 0px;
+  height: 40px;
+  border-radius: 5px;
+
+  position: relative;
+  top: 40px;
+}
+.cliente-input input {
+  border: none;
+  width: 400px;
+  height: 30px;
+  background: #f2e6ff00;
+  
+  outline: none;
+  transition: all 0.3s ease;
 }

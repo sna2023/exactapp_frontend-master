@@ -23,7 +23,10 @@ const ProveedorM = lazy(() => import("./Menu/Proveedor.jsx"));
 const ReportesM = lazy(() => import("./Menu/Reportes.jsx"));
 const VentasM = lazy(() => import("./Menu/Ventas.jsx"));
 const AggClientesP = lazy(() => import("./contenido_de_home/nueva_venta.jsx"));
-const VCarrito = lazy(() => import("./Menu/VentasCarrito.jsx"));
+const NuevaVenta = lazy(() => import("./contenido_de_home/AddVentas.jsx")); // Asegúrate de que la ruta sea correcta
+
+// quiero que VCarrito carge en la misma pantalla, como lo configuro al archivo real
+//const VCarrito = lazy(() => import("./Menu/VentasCarrito.jsx"));
 
 // Sidebar componente
 const Sidebar = ({ cargarContenido }) => {
@@ -68,16 +71,16 @@ const Home = () => {
     inicio: <ContenidoHome cargarContenido={setContenidoActual} />, // Asegura que inicio cargue ContenidoHome
     InicioMenu: <ContenidoHome cargarContenido={setContenidoActual} />, // Ahora InicioMenu carga el Home
     ProductosMenu: <ProductoM />,
-    VentasMenu: <VentasM />,
+    VentasMenu: <VentasM cargarContenido={setContenidoActual} />, // Pasa cargarContenido a VentasM
     ClientesMenu: <ClienteM />,
     ComprasMenu: <ComprasM />,
     ProveedorMenu: <ProveedorM />,
     ReportesMenu: <ReportesM />,
-    InventarioMenu: <InventarioM />, 
+    InventarioMenu: <InventarioM />,
     ConfiguracionMenu: <ConfiguracionM />,
     aggClientes: <AggClientesP />,
-    VentasCarrito:<VCarrito />,
-
+    NuevaVenta: <NuevaVenta cargarContenido={setContenidoActual} />, // Asegúrate de pasar cargarContenido
+    //VentasCarrito: <VCarrito />,
   };
 
   return (

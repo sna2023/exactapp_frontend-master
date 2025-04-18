@@ -1,19 +1,119 @@
-.cliente-container {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: #c73d3d;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+/* ListaClientes.css */
 
-.cliente-titulo {
-    color: #333;
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 20px;
+.lista-clientes-container {
+    width: 90%;
+    margin: 20px auto;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .lista-clientes-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    background-color: #fff;
+  }
+  
+  .back-button-clientes {
+    font-size: 1.2em;
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: #777;
+    margin-right: 15px;
+  }
+  
+  .lista-clientes-title {
+    font-size: 1.8em;
+    color: #555;
+    margin: 0;
+    flex-grow: 1;
     text-align: center;
-}
-.h4{
-    color:#c73d3d;
-}
+  }
+  
+  .agregar-clientes-button {
+    background-color: #a78bfa; /* Morado claro */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 15px;
+    font-size: 1em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  .agregar-clientes-button:hover {
+    background-color: #8b5cf6; /* Morado más oscuro */
+  }
+  
+  .plus-icon {
+    font-size: 1.2em;
+    margin-right: 5px;
+  }
+  
+  .lista-clientes-table-container {
+    padding: 15px;
+    overflow-x: auto; /* Para tablas más anchas en pantallas pequeñas */
+  }
+  
+  .lista-clientes-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid #eee;
+  }
+  
+  .lista-clientes-table thead th {
+    background-color: #f0f0f0;
+    color: #666;
+    font-weight: bold;
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 2px solid #ddd;
+  }
+  
+  .lista-clientes-table tbody td {
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+    color: #777;
+  }
+  
+  .lista-clientes-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .acciones-clientes {
+    text-align: right;
+  }
+  
+  .editar-cliente-button,
+  .eliminar-cliente-button {
+    background: none;
+    border: none;
+    font-size: 1.1em;
+    cursor: pointer;
+    margin-left: 10px;
+    outline: none;
+  }
+  
+  .editar-cliente-button .editar-icon {
+    color: #007bff; /* Azul */
+  }
+  
+  .eliminar-cliente-button .eliminar-icon {
+    color: #dc3545; /* Rojo */
+  }
+  
+  .no-clientes {
+    padding: 15px;
+    text-align: center;
+    color: #999;
+  }
+  
