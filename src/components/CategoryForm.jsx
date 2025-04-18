@@ -1,66 +1,66 @@
-import React, { useState } from "react";
-import './CategoryForm'
+import React, { useState } from 'react';
+import './CategoryForm.css'; // Importa los estilos proporcionados
 
-const CategoryForm = ({
-  newCategory,
-  setNewCategory,
-  categories,
-  handleAddCategory,
-  setShowCategoryForm,
-  success,
-  error,
-}) => {
-  const handleCategoryInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewCategory((prev) => ({
-      ...prev,
-      [name]: name === "orden" ? parseInt(value) : value,
-    }));
+const CategoryForm = ({ categories, setCategories, handleCategorySubmit, onClose }) => {
+  const [newCategoryName, setNewCategoryName] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false); // Ejemplo de estado de carga
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!newCategoryName.trim()) {
+      setError('El nombre de la categoría es obligatorio');
+      return;
+    }
+
+    // Simulación de guardado (puedes reemplazar con tu lógica de API)
+    setLoading(true);
+    setTimeout(() => {
+      const newCategory = {
+        id: Date.now(), // Simulación de ID
+        nombre: newCategoryName,
+      };
+      handleCategorySubmit(newCategory);
+      setNewCategoryName('');
+      setError('');
+      setLoading(false);
+      onClose();
+    }, 500);
   };
 
   return (
-    <div className="modal-overlay">
+    <div className="overlay">
       <div className="modal">
-        <h3>Categorías</h3>
-        <button className="close-button" onClick={() => setShowCategoryForm(false)}>
-          X
-        </button>
-        <div className="form-group">
-          <input type="text" placeholder="Buscar Categorías" />
+        <div className="modal-header">
+          <h2>Agregar Nueva Categoría</h2>
+          <button type="button" className="close-button" onClick={onClose}>
+            <svg viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6">
+              <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
+            </svg>
+          </button>
         </div>
-        <div className="form-group">
-          <label>Nombre de la Categoría</label>
-          <input
-            type="text"
-            placeholder="Agregar Categoría"
-            name="nombre"
-            value={newCategory.nombre}
-            onChange={handleCategoryInputChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Orden</label>
-          <input
-            type="number"
-            name="orden"
-            value={newCategory.orden}
-            onChange={handleCategoryInputChange}
-            placeholder="Orden (opcional)"
-          />
-        </div>
-        <div className="form-group">
-          <button onClick={handleAddCategory}>Agregar Categoría</button>
-        </div>
-        <div className="form-group">
-          <h4>Lista de categorías agregadas</h4>
-          <ul>
-            {categories.map((category) => (
-              <li key={category.id}>{category.nombre}</li>
-            ))}
-          </ul>
-        </div>
-        {success && <p className="success-message">{success}</p>}
-        {error && <p className="error-message">{error}</p>}
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="newCategoryName" className="label">Nombre de la Categoría:</label>
+            <input
+              type="text"
+              id="newCategoryName"
+              className="input"
+              value={newCategoryName}
+              onChange={(e) => setNewCategoryName(e.target.value)}
+            />
+          </div>
+          {error && <div className="alert-error">{error}</div>}
+          <div className="button-group">
+            <button type="button" className="button cancel" onClick={onClose}>
+              Cancelar
+            </button>
+            <button type="submit" className="button submit" disabled={loading}>
+              {loading && <span className="spinner"></span>}
+              Guardar Categoría
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './AddProductForm.css';
-import CategoryForm from './CategoryForm';
+import CategoryForm from './CategoryForm.jsx';
 
 
 const AddProductForm = ({ onClose, onOpenCategoryForm }) => {
@@ -159,11 +159,16 @@ const AddProductForm = ({ onClose, onOpenCategoryForm }) => {
               ))}
             </select>
             <button
-              className="mas-button"
-              onClick={() => setShowCategoryForm(true)}
-            >
-              +
-            </button>
+  type="button"
+  className="mas-button"
+  onClick={(e) => {
+    e.preventDefault(); // Previene el submit del form
+    setShowCategoryForm(true);
+  }}
+>
+  +
+</button>
+
           </div>
           <div>
             <input
