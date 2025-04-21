@@ -3,7 +3,8 @@ import './AddProductForm.css';
 import CategoryForm from './CategoryForm.jsx';
 
 
-const AddProductForm = ({ onClose, onOpenCategoryForm }) => {
+const AddProductForm = ({ onClose, onOpenCategoryForm, onSave, editingProduct = null }) => {
+
   const [product, setProduct] = useState({
     companiaId: "c8faa65e-1343-46e4-b0de-fe3b3a82d709",
     categoriaId: "",
@@ -112,10 +113,13 @@ const AddProductForm = ({ onClose, onOpenCategoryForm }) => {
       setSavedProducts(updatedProducts);
       setEditingProduct(null);
       setSuccess("Producto actualizado correctamente");
-    } else {
-      setSavedProducts((prev) => [...prev, payload]);
+    }else {
+      if (onSave) {
+        onSave(payload);
+      }
       setSuccess("Guardado correctamente");
     }
+    
 
     setTimeout(() => {
       onClose();

@@ -226,23 +226,14 @@ const MProducto = () => {
       {showAddForm && (
         <div className="overlay">
           <AddProductForm
-            editingProduct={editingProduct}
-            newProduct={newProduct}
-            setNewProduct={setNewProduct}
-            categories={categories}
-            handleAddProduct={handleAddProduct}
-            setShowAddForm={setShowAddForm}
-            setEditingProduct={setEditingProduct}
-            success={success}
-            error={error}
-            onClose={handleCloseAddForm}
-            onOpenCategoryForm={() => setShowCategoryForm(true)}
-            newCategory={newCategory}
-            setNewCategory={setNewCategory}
-            handleAddCategory={handleAddCategory}
-            showCategoryForm = {showCategoryForm}
-            setShowCategoryForm = {setShowCategoryForm}
-          />
+  onClose={handleCloseAddForm}
+  onOpenCategoryForm={() => setShowCategoryForm(true)}
+  onSave={(productData) => {
+    setProducts((prev) => [...prev, { ...productData, id: Date.now().toString() }]);
+  }}
+  editingProduct={editingProduct}
+/>
+  
         </div>
       )}
 

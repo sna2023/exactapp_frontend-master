@@ -1,12 +1,15 @@
 /* H_agg_clientes.css */
 
 .form-container {
-  width: 95%; /* Adaptable al ancho del contenedor padre */
-  max-width: 600px; /* Ancho máximo para pantallas grandes */
+  width: 85%; /* Adaptable al ancho del contenedor padre */
+  max-width: 450px; /* Ancho máximo para pantallas grandes */
+  height: 104%;
+  max-height: 650px;
   margin: 20px auto; /* Centrar el formulario en la pantalla */
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: #ffd8fc;
+
   border-radius: 8px;
   box-sizing: border-box; /* Incluir padding y border en el width */
   position: relative; /* Para posicionar el botón de cerrar */
@@ -31,6 +34,7 @@
   text-align: center;
   margin-bottom: 20px;
   color: #000000;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .form-group {
