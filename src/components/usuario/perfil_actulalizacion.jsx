@@ -33,35 +33,51 @@ function PerfilActualizar() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  const API_URL = 'https://aadministracion.infor-business.com/api/1.0/Compania/7e6a7d77-6ac5-4e33-99be-60741e20856a';//se necesita lo que es login como {idUsuaro} 
+  // TODO: La URL de la API debería ser dinámica y depender del ID del usuario obtenido del login.
+  const API_URL = 'https://aadministracion.infor-business.com/api/1.0/Compania/0c127af1-56dd-453c-bf2a-b0712b331f41';
 
   useEffect(() => {
-    fetch(API_URL, {
-      method: 'GET',
-      headers: { 'Accept': 'application/json' }
-    })
-    .then(response => response.json())
-    .then(data => {
-      // Dividir el número de teléfono en código y número
-      const telefono = data.telefono || '';
-      let phoneCode = '';
-      let phoneNumber = telefono;
-      
-      countryOptions.forEach(option => {
-        if (telefono.startsWith(option.value)) {
-          phoneCode = option.value;
-          phoneNumber = telefono.replace(option.value, '');
-        }
-      });
+    const fetchProfile = async () => {
+      try {
+        const response = await fetch(API_URL, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
 
-      setProfile({
-        ...data,
-        phoneCode,
-        phoneNumber
-      });
-    })
-    .catch(error => console.error('Error al obtener los datos:', error));
-  }, []);
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(`Error al obtener los datos: ${errorData.message || response.statusText}`);
+        }
+
+        const data = await response.json();
+        const telefono = data.telefono || '';
+        let phoneCode = '';
+        let phoneNumber = telefono;
+
+        countryOptions.forEach(option => {
+          if (telefono.startsWith(option.value)) {
+            phoneCode = option.value;
+            phoneNumber = telefono.replace(option.value, '');
+          }
+        });
+
+        setProfile({
+          ...data,
+          phoneCode,
+          phoneNumber
+        });
+
+      } catch (err) {
+        console.error('Error al obtener los datos:', err);
+        setError(err.message);
+      }
+    };
+
+    fetchProfile();
+  }, [API_URL]); // Dependencia agregada para que se vuelva a ejecutar si la URL cambia
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -84,10 +100,20 @@ function PerfilActualizar() {
     setSuccess('');
 
     try {
-      // Combinar código y número de teléfono
       const datosActualizados = {
-        ...profile,
-        telefono: profile.phoneCode + profile.phoneNumber
+        id: profile.id,
+        ruc: profile.ruc,
+        razonSocial: profile.razonSocial,
+        direccionMatriz: profile.direccionMatriz,
+        abreviatura: profile.abreviatura,
+        telefono: profile.phoneCode + profile.phoneNumber,
+        email: profile.email,
+        nombreBD: profile.nombreBD,
+        nombreDominio: profile.nombreDominio,
+        tipoNegocio: {
+          id: profile.tipoNegocio?.id
+        },
+        deleted: profile.deleted
       };
 
       const response = await fetch(API_URL, {
@@ -100,13 +126,13 @@ function PerfilActualizar() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        setError(`Error al guardar: ${errorData.message || response.statusText}`);
-        return;
+        throw new Error(`Error al guardar: ${errorData.message || response.statusText}`);
       }
 
       setSuccess('¡Perfil actualizado exitosamente!');
-    } catch (error) {
-      setError(`Error de conexión: ${error.message}`);
+    } catch (err) {
+      console.error('Error al guardar los datos:', err);
+      setError(`Error de conexión: ${err.message}`);
     }
   };
 
@@ -167,15 +193,14 @@ function PerfilActualizar() {
             <label>Número de Celular:</label>
             <input
               type="tel"
-              className="n_celular"
+              className="n_celular" // Considera renombrar esta clase a algo más descriptivo
               name="phoneNumber"
               value={profile.phoneNumber}
               onChange={handleChange}
+              title="Ingrese su número de celular" // Agregando la propiedad title
             />
           </div>
         </div>
-
-        
 
         <button type="submit" className="bt">Guardar Cambios</button>
       </form>
