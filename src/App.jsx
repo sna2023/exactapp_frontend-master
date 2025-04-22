@@ -6,6 +6,7 @@ import BusinessTypes from './pages/BusinessTypes.jsx';
 import Login from './pages/Login.jsx';
 import Dashboard from './components/home.jsx'; // Pantalla protegida
 import nada from './components/CategoryForm.jsx';
+import Catexxx from './components/CategoryManager.jsx'//prueba de mostrar categoria como elimiar
 
 function App() {
   const { user } = useAuth();

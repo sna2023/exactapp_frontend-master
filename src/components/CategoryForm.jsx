@@ -11,6 +11,8 @@ const CategoryForm = ({ onClose, onSaveCategory }) => {
     Peso: false,
   });
   const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  
 
   const handleInputChange = (event) => {
     setCategoryName(event.target.value);
@@ -25,26 +27,32 @@ const CategoryForm = ({ onClose, onSaveCategory }) => {
   };
 
   const handleGuardar = async () => {
+    // Validación
     if (!categoryName.trim()) {
       setErrorMessage('El nombre de la categoría es obligatorio.');
       return;
     }
-
+  
+    // Limpieza de errores anteriores
+    setErrorMessage('');
+    setSuccessMessage('');
+  
+    // Preparar las variaciones seleccionadas
     const selectedVariations = Object.keys(variations)
       .filter((key) => variations[key])
       .join(', ');
-
+  
     const newCategoryData = {
       id: uuidv4(),
       nombre: categoryName,
       app: selectedVariations,
-      companiaId: "f1a7e9cd-3fcd-4567-a3e8-b67f50c210a3", // Asegúrate de que este valor sea correcto
+      companiaId: "f1a7e9cd-3fcd-4567-a3e8-b67f50c210a3", // Ajustar si es dinámico
       enabled: true,
     };
-
+  
     try {
       const token = localStorage.getItem('token');
-
+  
       const response = await fetch('https://aadministracion.infor-business.com/api/1.0/Categoria', {
         method: 'POST',
         headers: {
@@ -54,24 +62,33 @@ const CategoryForm = ({ onClose, onSaveCategory }) => {
         },
         body: JSON.stringify(newCategoryData),
       });
-
+  
       if (!response.ok) {
         const errorText = await response.text();
         console.error('Error al guardar la categoría:', errorText);
         setErrorMessage('Error al guardar la categoría. Intenta nuevamente.');
         return;
       }
-
+  
       const savedCategory = await response.json();
+  
+      // ✅ Mostrar éxito y cerrar después
       console.log('Categoría guardada exitosamente:', savedCategory);
+      setSuccessMessage('¡Categoría guardada exitosamente!');
+      
+      // ✅ Llamar solo una vez
       onSaveCategory(savedCategory);
-      onClose();
+  
+      setTimeout(() => {
+        onClose();
+      }, 2000);
+  
     } catch (error) {
       console.error('Detalle del error:', error);
       setErrorMessage(`Error de red: ${error.message}`);
     }
-    
   };
+  
 
   return (
     <div className="overlay">
@@ -85,7 +102,7 @@ const CategoryForm = ({ onClose, onSaveCategory }) => {
           </button>
         </div>
 
-        {errorMessage && <div className="error-message">{errorMessage}</div>}
+        {successMessage && <div className="success-message">{successMessage}</div>}
 
         <div className="form-group">
           <label htmlFor="categoryName" className="label">Nombre</label>

@@ -131,3 +131,10 @@
 .guardar-button {
   font-size: 1rem;
 }
+.success-message {
+  color: green;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
