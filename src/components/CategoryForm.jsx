@@ -1,9 +1,6 @@
-
-
 import React, { useState } from 'react';
-import './CategoryForm.css'; // Importa el archivo de estilos
+import './CategoryForm.css';
 import { v4 as uuidv4 } from 'uuid';
-
 
 const CategoryForm = ({ onClose, onSaveCategory }) => {
   const [categoryName, setCategoryName] = useState('');
@@ -21,53 +18,61 @@ const CategoryForm = ({ onClose, onSaveCategory }) => {
 
   const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;
-    setVariations((prevVariations) => ({
-      ...prevVariations,
+    setVariations((prev) => ({
+      ...prev,
       [name]: checked,
     }));
   };
 
   const handleGuardar = async () => {
+    if (!categoryName.trim()) {
+      setErrorMessage('El nombre de la categoría es obligatorio.');
+      return;
+    }
+
     const selectedVariations = Object.keys(variations)
       .filter((key) => variations[key])
-      .join(', '); // para guardarlo como string separado por coma
-  
+      .join(', ');
+
     const newCategoryData = {
-      id: "3fa85f64-5717-4562-b3fc-2c963f66afa6", // puedes usar un UUID dinámico si quieres
+      id: uuidv4(),
       nombre: categoryName,
-      orden: 0,
-      app: selectedVariations, // esto será por ejemplo: "Tamaño, Color"
+      app: selectedVariations,
+      companiaId: "f1a7e9cd-3fcd-4567-a3e8-b67f50c210a3", // Asegúrate de que este valor sea correcto
       enabled: true,
     };
-  
+
     try {
+      const token = localStorage.getItem('token');
+
       const response = await fetch('https://aadministracion.infor-business.com/api/1.0/Categoria', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'accept': 'application/json',
-          'Authorization': 'Token XYTYJKSBVOSIDHFKNSFBOAHJSDBVBUYGFGKBSDFJKBDSJVKSD' // Incluimos el token en el encabezado Authorization
+          'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify(newCategoryData)
+        body: JSON.stringify(newCategoryData),
       });
-  
+
       if (!response.ok) {
         const errorText = await response.text();
         console.error('Error al guardar la categoría:', errorText);
         setErrorMessage('Error al guardar la categoría. Intenta nuevamente.');
         return;
       }
-  
+
       const savedCategory = await response.json();
       console.log('Categoría guardada exitosamente:', savedCategory);
       onSaveCategory(savedCategory);
       onClose();
     } catch (error) {
-      console.error('Error de red:', error);
-      setErrorMessage('Error de red. Verifica tu conexión.');
+      console.error('Detalle del error:', error);
+      setErrorMessage(`Error de red: ${error.message}`);
     }
+    
   };
-  
+
   return (
     <div className="overlay">
       <div className="modal">
@@ -79,7 +84,9 @@ const CategoryForm = ({ onClose, onSaveCategory }) => {
             </svg>
           </button>
         </div>
+
         {errorMessage && <div className="error-message">{errorMessage}</div>}
+
         <div className="form-group">
           <label htmlFor="categoryName" className="label">Nombre</label>
           <input
@@ -91,10 +98,11 @@ const CategoryForm = ({ onClose, onSaveCategory }) => {
             onChange={handleInputChange}
           />
         </div>
+
         <div className="form-group">
           <label className="label">Seleccionar Variaciones</label>
           <div className="variations-grid">
-          {Object.keys(variations).map((key) => (
+            {Object.keys(variations).map((key) => (
               <div key={key} className="checkbox-container">
                 <input
                   type="checkbox"
@@ -109,6 +117,7 @@ const CategoryForm = ({ onClose, onSaveCategory }) => {
             ))}
           </div>
         </div>
+
         <div className="button-group">
           <button type="button" className="button cancel" onClick={onClose}>
             Cancelar

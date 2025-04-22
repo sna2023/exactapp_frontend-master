@@ -66,6 +66,7 @@ const AddProductForm = ({ onClose, onOpenCategoryForm, onSave, editingProduct = 
   const handleCategorySubmit = (newCategory) => {
     setCategories((prev) => [...prev, newCategory]);
     setShowCategoryForm(false);
+    
   };
 
   const handleSubmit = (e) => {
@@ -251,8 +252,8 @@ const AddProductForm = ({ onClose, onOpenCategoryForm, onSave, editingProduct = 
         <CategoryForm
           categories={categories}
           setCategories={setCategories}
-          handleCategorySubmit={handleCategorySubmit}
           onClose={() => setShowCategoryForm(false)}
+          onSaveCategory={handleCategorySubmit}
         />
       )}
     </div>
