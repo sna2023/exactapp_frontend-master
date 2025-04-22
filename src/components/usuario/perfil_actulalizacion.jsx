@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import '../../css/usuario_estilo/estilo_perfil.css';
 import Actualizarperfil from '../../data-icono/usuario/Actualizar tu Perfil.png';
-//
+
 const countryOptions = [
   { value: '+1', label: '🇺🇸 USA (+1)' },
   { value: '+52', label: '🇲🇽 México (+52)' },
@@ -10,94 +10,71 @@ const countryOptions = [
 ];
 
 const initialProfileState = {
-  usuario: {
-    compania: {
-      abreviatura: '',
-      razonSocial: '',
-      ruc: ''
-    },
-    phoneNumber: '',
-    phoneCode: ''
-  }
+  id: '',
+  ruc: '',
+  razonSocial: '',
+  direccionMatriz: '',
+  abreviatura: '',
+  telefono: '',
+  phoneCode: '',
+  phoneNumber: '',
+  email: '',
+  nombreBD: '',
+  nombreDominio: '',
+  tipoNegocio: {
+    id: '',
+    nombre: ''
+  },
+  deleted: false,
 };
 
 function PerfilActualizar() {
   const [profile, setProfile] = useState(initialProfileState);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  const API_URL_USUARIO = 'https://aadministracion.infor-business.com/api/1.0/Usuario';
-  const API_URL_COMPANIA = 'https://aadministracion.infor-business.com/api/1.0/Compania';
-  const USER_ID = '3fa85f64-5717-4562-b3fc-2c963f66afa6';
+  const API_URL = 'https://aadministracion.infor-business.com/api/1.0/Compania/7e6a7d77-6ac5-4e33-99be-60741e20856a';//se necesita lo que es login como {idUsuaro} 
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const responseUsuario = await fetch(`${API_URL_USUARIO}/${USER_ID}`);
-        if (!responseUsuario.ok) throw new Error('Error al obtener datos del usuario');
-        const resultUsuario = await responseUsuario.json();
+    fetch(API_URL, {
+      method: 'GET',
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Dividir el número de teléfono en código y número
+      const telefono = data.telefono || '';
+      let phoneCode = '';
+      let phoneNumber = telefono;
+      
+      countryOptions.forEach(option => {
+        if (telefono.startsWith(option.value)) {
+          phoneCode = option.value;
+          phoneNumber = telefono.replace(option.value, '');
+        }
+      });
 
-        const responseCompania = await fetch(`${API_URL_COMPANIA}/${USER_ID}`);
-        if (!responseCompania.ok) throw new Error('Error al obtener datos de la compañía');
-        const resultCompania = await responseCompania.json();
-
-        const phoneParts = typeof resultUsuario.phoneNumber === 'string' ? resultUsuario.phoneNumber.split(' ') : [];
-
-        setProfile({
-          ...resultUsuario,
-          usuario: {
-            ...resultUsuario,
-            phoneCode: phoneParts[0] || '',
-            phoneNumber: phoneParts.slice(1).join(' ') || '',
-            compania: resultCompania || {
-              abreviatura: '',
-              razonSocial: '',
-              ruc: ''
-            }
-          }
-        });
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProfile();
+      setProfile({
+        ...data,
+        phoneCode,
+        phoneNumber
+      });
+    })
+    .catch(error => console.error('Error al obtener los datos:', error));
   }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProfile(prev => ({
       ...prev,
-      usuario: {
-        ...prev.usuario,
-        compania: {
-          ...prev.usuario.compania,
-          [name]: value
-        }
-      }
-    }));
-  };
-
-  const handlePhoneChange = (e) => {
-    setProfile(prev => ({
-      ...prev,
-      usuario: {
-        ...prev.usuario,
-        phoneNumber: e.target.value
-      }
+      [name]: value
     }));
   };
 
   const handlePhoneCodeChange = (selectedOption) => {
     setProfile(prev => ({
       ...prev,
-      usuario: {
-        ...prev.usuario,
-        phoneCode: selectedOption?.value || ''
-      }
+      phoneCode: selectedOption?.value || ''
     }));
   };
 
@@ -107,34 +84,31 @@ function PerfilActualizar() {
     setSuccess('');
 
     try {
-      const token = localStorage.getItem('token');
-      const payload = {
+      // Combinar código y número de teléfono
+      const datosActualizados = {
         ...profile,
-        phoneNumber: `${profile.usuario.phoneCode} ${profile.usuario.phoneNumber}`.trim()
+        telefono: profile.phoneCode + profile.phoneNumber
       };
 
-      const response = await fetch(`${API_URL_USUARIO}/${USER_ID}`, {
+      const response = await fetch(API_URL, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(datosActualizados)
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Error en la actualización');
+        setError(`Error al guardar: ${errorData.message || response.statusText}`);
+        return;
       }
 
-      setSuccess('¡Perfil actualizado correctamente!');
-      setTimeout(() => setSuccess(''), 3000);
+      setSuccess('¡Perfil actualizado exitosamente!');
     } catch (error) {
-      setError(error.message);
+      setError(`Error de conexión: ${error.message}`);
     }
   };
-
-  if (loading) return <div className="profile-container">Cargando...</div>;
 
   return (
     <div className="profile-container">
@@ -149,9 +123,9 @@ function PerfilActualizar() {
           <label>Categoría de Negocio:</label>
           <input
             type="text"
-            name="abreviatura"
-            value={profile.usuario.compania.abreviatura}
-            onChange={handleChange}
+            name="tipoNegocio.nombre"
+            value={profile.tipoNegocio?.nombre || ''}
+            readOnly
           />
         </div>
 
@@ -160,7 +134,7 @@ function PerfilActualizar() {
           <input
             type="text"
             name="razonSocial"
-            value={profile.usuario.compania.razonSocial}
+            value={profile.razonSocial}
             onChange={handleChange}
           />
         </div>
@@ -170,7 +144,7 @@ function PerfilActualizar() {
           <input
             type="text"
             name="ruc"
-            value={profile.usuario.compania.ruc}
+            value={profile.ruc}
             onChange={handleChange}
             pattern="[A-Za-z0-9]{10,20}"
             title="RUC debe tener entre 10 y 20 caracteres alfanuméricos"
@@ -183,7 +157,7 @@ function PerfilActualizar() {
             <Select
               options={countryOptions}
               onChange={handlePhoneCodeChange}
-              value={countryOptions.find(opt => opt.value === profile.usuario.phoneCode)}
+              value={countryOptions.find(option => option.value === profile.phoneCode)}
               placeholder="Seleccione..."
               classNamePrefix="react-select"
             />
@@ -194,11 +168,14 @@ function PerfilActualizar() {
             <input
               type="tel"
               className="n_celular"
-              value={profile.usuario.phoneNumber}
-              onChange={handlePhoneChange}
+              name="phoneNumber"
+              value={profile.phoneNumber}
+              onChange={handleChange}
             />
           </div>
         </div>
+
+        
 
         <button type="submit" className="bt">Guardar Cambios</button>
       </form>
