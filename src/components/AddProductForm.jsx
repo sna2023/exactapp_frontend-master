@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './AddProductForm.css';
 import CategoryForm from './CategoryForm.jsx';
 
-
-const AddProductForm = ({ onClose, onOpenCategoryForm, onSave, editingProduct = null }) => {
-
+const AddProductForm = ({ onClose, onSave, editingProduct = null }) => {
   const [product, setProduct] = useState({
     companiaId: "c8faa65e-1343-46e4-b0de-fe3b3a82d709",
     categoriaId: "",
@@ -23,11 +21,12 @@ const AddProductForm = ({ onClose, onOpenCategoryForm, onSave, editingProduct = 
   });
   const [categories, setCategories] = useState([]);
   const CATEGORIA_API_URL = "https://aadministracion.infor-business.com/api/1.0/Categoria";
+  const ARTICULO_API_URL = "https://nova-inventario-api.infor-business.com/inventario/1.0";
+  const COMPANIA_ID = "c8faa65e-1343-46e4-b0de-fe3b3a82d709";
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [showCategoryForm, setShowCategoryForm] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [savedProducts, setSavedProducts] = useState([]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -51,7 +50,26 @@ const AddProductForm = ({ onClose, onOpenCategoryForm, onSave, editingProduct = 
     };
 
     fetchCategories();
-  }, []);
+
+    if (editingProduct) {
+      setProduct({
+        companiaId: editingProduct.companiaId,
+        categoriaId: editingProduct.categoriaId,
+        codigo: editingProduct.codigo,
+        codigoAuxiliar: editingProduct.codigoAuxiliar,
+        nombre: editingProduct.nombre,
+        valor: editingProduct.valor,
+        precio: editingProduct.precio,
+        stock: editingProduct.stock,
+        codigoTipoImpuesto: editingProduct.codigoTipoImpuesto,
+        codigoIva: editingProduct.codigoIva,
+        porcentajeIva: editingProduct.porcentajeIva,
+        codigoIce: editingProduct.codigoIce,
+        porcentajeIce: editingProduct.porcentajeIce,
+        descripcion: editingProduct.descripcion,
+      });
+    }
+  }, [editingProduct]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -66,66 +84,85 @@ const AddProductForm = ({ onClose, onOpenCategoryForm, onSave, editingProduct = 
   const handleCategorySubmit = (newCategory) => {
     setCategories((prev) => [...prev, newCategory]);
     setShowCategoryForm(false);
-    
-  }; 
+  };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setSuccess("");
+    setLoading(true);
 
     if (!product.nombre) {
       setError("El nombre del producto es obligatorio");
+      setLoading(false);
       return;
     }
     if (!product.categoriaId) {
       setError("Debe seleccionar una categoría");
+      setLoading(false);
       return;
     }
     if (product.valor <= 0) {
       setError("El costo debe ser mayor que 0");
+      setLoading(false);
       return;
     }
     if (product.precio <= 0) {
       setError("El precio debe ser mayor que 0");
+      setLoading(false);
       return;
     }
+
     const payload = {
-      companiaId: "c8faa65e-1343-46e4-b0de-fe3b3a82d709",
+      companiaId: COMPANIA_ID,
       categoriaId: product.categoriaId,
-      codigo: product.codigo || "",
-      codigoAuxiliar: product.codigo || "",
+      codigo: product.codigo,
+      codigoAuxiliar: product.codigoAuxiliar || "",
       nombre: product.nombre,
       valor: parseFloat(product.valor),
       precio: parseFloat(product.precio),
-      stock: product.stock || 0,
-      codigoTipoImpuesto: "s",
-      codigoIva: "s",
-      porcentajeIva: 0,
-      codigoIce: "string",
-      porcentajeIce: 0,
+      stock: parseInt(product.stock),
+      codigoTipoImpuesto: product.codigoTipoImpuesto || "s",
+      codigoIva: product.codigoIva || "s",
+      porcentajeIva: parseFloat(product.porcentajeIva) || 0,
+      codigoIce: product.codigoIce || "",
+      porcentajeIce: parseFloat(product.porcentajeIce) || 0,
       descripcion: product.descripcion || "",
     };
 
-    if (editingProduct) {
-      const updatedProducts = savedProducts.map((item) =>
-        item.codigo === editingProduct.codigo ? payload : item
-      );
-      setSavedProducts(updatedProducts);
-      setEditingProduct(null);
-      setSuccess("Producto actualizado correctamente");
-    }else {
-      if (onSave) {
-        onSave(payload);
-      }
-      setSuccess("Guardado correctamente");
-    }
-    
+    const url = editingProduct
+      ? `${ARTICULO_API_URL}/${COMPANIA_ID}/Articulo/${editingProduct.id}?CompaniaId=${COMPANIA_ID}`
+      : `${ARTICULO_API_URL}/${COMPANIA_ID}/Articulo?CompaniaId=${COMPANIA_ID}`;
+    const method = editingProduct ? "PUT" : "POST";
 
-    setTimeout(() => {
-      onClose();
-      setSuccess("");
-    }, 2000);
+    try {
+      const response = await fetch(url, {
+        method: method,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData?.message || `Error al ${editingProduct ? 'actualizar' : 'guardar'} el producto`);
+      }
+
+      const result = await response.json();
+      setSuccess(`Producto ${editingProduct ? 'actualizado' : 'guardado'} correctamente`);
+      if (onSave) {
+        onSave(result.data); // Assuming your API returns the saved/updated product data
+      }
+      setTimeout(() => {
+        onClose();
+        setSuccess("");
+      }, 2000);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -134,7 +171,7 @@ const AddProductForm = ({ onClose, onOpenCategoryForm, onSave, editingProduct = 
         <button className="close-btn" onClick={onClose}>
           X
         </button>
-        <h3>Agregar Nuevo Producto</h3>
+        <h3>{editingProduct ? 'Editar Producto' : 'Agregar Nuevo Producto'}</h3>
 
         <form onSubmit={handleSubmit}>
           <div>
@@ -164,16 +201,15 @@ const AddProductForm = ({ onClose, onOpenCategoryForm, onSave, editingProduct = 
               ))}
             </select>
             <button
-  type="button"
-  className="mas-button"
-  onClick={(e) => {
-    e.preventDefault(); // Previene el submit del form
-    setShowCategoryForm(true);
-  }}
->
-  +
-</button>
-
+              type="button"
+              className="mas-button"
+              onClick={(e) => {
+                e.preventDefault(); // Previene el submit del form
+                setShowCategoryForm(true);
+              }}
+            >
+              +
+            </button>
           </div>
           <div>
             <input
@@ -238,14 +274,13 @@ const AddProductForm = ({ onClose, onOpenCategoryForm, onSave, editingProduct = 
               <option value="EUR">EURO</option>
             </select>
           </div>
-          <button type="submit" className="save-btn">
-            Guardar
+          <button type="submit" className="save-btn" disabled={loading}>
+            {loading ? 'Guardando...' : 'Guardar'}
           </button>
         </form>
 
         {success && <p className="success-message">{success}</p>}
         {error && <p className="error-message">{error}</p>}
-        {loading && <p>Cargando categorias...</p>}
       </div>
 
       {showCategoryForm && (
@@ -253,7 +288,7 @@ const AddProductForm = ({ onClose, onOpenCategoryForm, onSave, editingProduct = 
           categories={categories}
           setCategories={setCategories}
           onClose={() => setShowCategoryForm(false)}
-          onSaveCategory={handleCategorySubmit}
+          onSaveCategory={handleCategorySubmit}
         />
       )}
     </div>

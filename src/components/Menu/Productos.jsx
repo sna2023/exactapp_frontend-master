@@ -6,167 +6,178 @@ const MProducto = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [showAddForm, setShowAddForm] = useState(false);
-  const [showCategoryForm, setShowCategoryForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
-  const [newProduct, setNewProduct] = useState({
-    companiaId: "c8faa65e-1343-46e4-b0de-fe3b3a82d709",
-    categoriaId: "",
-    codigo: "",
-    codigoAuxiliar: "",
-    nombre: "",
-    valor: 0,
-    precio: 0,
-    stock: 0,
-    codigoTipoImpuesto: "s",
-    codigoIva: "s",
-    porcentajeIva: 0,
-    codigoIce: "string",
-    porcentajeIce: 0,
-    descripcion: "",
-  });
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [newCategory, setNewCategory] = useState({ nombre: "", orden: "" });
+  const [showCategoryForm, setShowCategoryForm] = useState(false); // agregado
 
-  const COMPANIA_ID = "c8faa65e-1343-46e4-b0de-fe3b3a82d709";
-  const CATEGORIA_API_URL = "https://aadministracion.infor-business.com/api/1.0/Categoria";
+  const apiUrl = "https://nova-inventario-api.infor-business.com/inventario/1.0";
+  const companiaId = "3fa85f64-5717-4562-b3fc-2c963f66afa6";
+  const articuloEndpoint = `${apiUrl}/${companiaId}/Articulo`;
 
-  const [newCategory, setNewCategory] = useState({
-    nombre: "",
-    orden: "",
-  });
+  const fetchProducts = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const response = await fetch(`${articuloEndpoint}?CompaniaId=${companiaId}`, {
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (!response.ok) throw new Error(`Error HTTP! estado: ${response.status}`);
+
+      const { data } = await response.json();
+      setProducts(data || []);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const storedProducts = localStorage.getItem("products");
-    if (storedProducts) {
-      setProducts(JSON.parse(storedProducts));
-    }
-
-    const storedCategories = localStorage.getItem("categories");
-    if (storedCategories) {
-      setCategories(JSON.parse(storedCategories));
-    }
+    fetchProducts();
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("products", JSON.stringify(products));
-  }, [products]);
+    const storedCategories = localStorage.getItem("categories");
+    if (storedCategories) {
+      setCategories(JSON.parse(storedCategories));
+    } else {
+      setCategories([
+        { id: "1", nombre: "Electrónicos" },
+        { id: "2", nombre: "Ropa" },
+        { id: "3", nombre: "Alimentos" },
+      ]);
+    }
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("categories", JSON.stringify(categories));
   }, [categories]);
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(CATEGORIA_API_URL, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (!response.ok) throw new Error("Error al obtener las categorías");
-        const result = await response.json();
-        setCategories(result.data || []);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchCategories();
-  }, []);
-
-  const handleAddProduct = (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
-    setSuccess("");
-
-    if (!newProduct.nombre) {
-      setError("El nombre del producto es obligatorio");
-      setLoading(false);
-      return;
-    }
-    if (!newProduct.categoriaId) {
-      setError("Debe seleccionar una categoría");
-      setLoading(false);
-      return;
-    }
-    if (newProduct.valor <= 0) {
-      setError("El costo debe ser mayor que 0");
-      setLoading(false);
-      return;
-    }
-    if (newProduct.precio <= 0) {
-      setError("El precio debe ser mayor que 0");
-      setLoading(false);
-      return;
-    }
-
-    const productToAdd = {
-      ...newProduct,
-      id: editingProduct ? editingProduct.id : Date.now().toString(),
-      codigo: newProduct.codigo || "",
-      codigoAuxiliar: newProduct.codigo || "",
-      descripcion: newProduct.descripcion || "",
-    };
-
-    if (editingProduct) {
-      setProducts(products.map((prod) => (prod.id === editingProduct.id ? productToAdd : prod)));
-      setSuccess("Producto actualizado correctamente");
-    } else {
-      setProducts([...products, productToAdd]);
-      setSuccess("Producto agregado correctamente");
-    }
-
-    setShowAddForm(false);
-    setEditingProduct(null);
-    setNewProduct({
-      companiaId: "c8faa65e-1343-46e4-b0de-fe3b3a82d709",
-      categoriaId: "",
-      codigo: "",
-      codigoAuxiliar: "",
-      nombre: "",
-      valor: 0,
-      precio: 0,
-      stock: 0,
-      codigoTipoImpuesto: "s",
-      codigoIva: "s",
-      porcentajeIva: 0,
-      codigoIce: "string",
-      porcentajeIce: 0,
-      descripcion: "",
-    });
-    setTimeout(() => setSuccess(""), 3000);
-    setLoading(false);
-  };
-
   const handleEditProduct = (product) => {
     setEditingProduct(product);
-    setNewProduct({
-      ...product,
-      precio: product.precio || product.valor + 100,
-    });
     setShowAddForm(true);
   };
 
-  const handleDeleteProduct = (productId) => {
-    setProducts(products.filter((prod) => prod.id !== productId));
-    setSuccess("Producto eliminado correctamente");
-    setTimeout(() => setSuccess(""), 3000);
+  const handleDeleteProduct = async (productId) => {
+    setLoading(true);
+    setError("");
+    try {
+      const response = await fetch(`${articuloEndpoint}/${productId}?CompaniaId=${companiaId}`, {
+        method: "DELETE",
+        headers: { accept: "application/json" },
+      });
+
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+      setProducts(products.filter((prod) => prod.id !== productId));
+      setSuccess("Producto eliminado correctamente de la API");
+      setTimeout(() => setSuccess(""), 3000);
+    } catch (err) {
+      setError("Error al eliminar el producto de la API");
+      console.error("Error deleting product:", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCloseAddForm = () => {
     setShowAddForm(false);
-    window.history.back();
+    setEditingProduct(null);
+  };
+
+  const handleAddProduct = async (productData) => {
+    setLoading(true);
+    setError("");
+    try {
+      const response = await fetch(articuloEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          companiaId,
+          categoriaId: productData.categoriaId,
+          codigo: productData.codigo,
+          nombre: productData.nombre,
+          valor: productData.valor,
+          stock: productData.stock,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Error al guardar");
+      }
+
+      await fetchProducts();
+      setSuccess("Producto agregado correctamente");
+      setShowAddForm(false);
+    } catch (err) {
+      setError("Error al agregar el producto a la API");
+      console.error("Error adding product:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleUpdateProduct = async (productData) => {
+    setLoading(true);
+    setError("");
+    try {
+      const response = await fetch(`${articuloEndpoint}/${editingProduct.id}?CompaniaId=${companiaId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+        },
+        body: JSON.stringify({
+          id: editingProduct.id,
+          companiaId,
+          categoriaId: productData.categoriaId,
+          codigo: productData.codigo,
+          codigoAuxiliar: productData.codigoAuxiliar || "",
+          nombre: productData.nombre,
+          valor: parseFloat(productData.valor),
+          codigoTipoImpuesto: productData.codigoTipoImpuesto || "",
+          codigoIva: productData.codigoIva || "",
+          porcentajeIva: parseFloat(productData.porcentajeIva) || 0,
+          codigoIce: productData.codigoIce || "",
+          porcentajeIce: parseFloat(productData.porcentajeIce) || 0,
+          stock: parseInt(productData.stock),
+        }),
+      });
+
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+      const updatedProduct = await response.json();
+      setProducts(products.map((p) => (p.id === editingProduct.id ? updatedProduct : p)));
+      setSuccess("Producto actualizado correctamente");
+      setShowAddForm(false);
+      setEditingProduct(null);
+    } catch (err) {
+      setError("Error al actualizar el producto");
+      console.error("Error updating product:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSaveProduct = (productData) => {
+    editingProduct ? handleUpdateProduct(productData) : handleAddProduct(productData);
   };
 
   const handleAddCategory = () => {
-    setCategories([...categories, newCategory]);
+    const newCategoryId = Date.now().toString();
+    setCategories([...categories, { ...newCategory, id: newCategoryId }]);
     setNewCategory({ nombre: "", orden: "" });
     setShowCategoryForm(false);
   };
@@ -177,67 +188,69 @@ const MProducto = () => {
         ←
       </button>
       <h2>PRODUCTOS</h2>
+
       <button className="add-product-button" onClick={() => setShowAddForm(true)}>
         + NUEVO PRODUCTO
       </button>
 
-            <table className="product-table">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Categoría</th>
-            <th>Código</th>
-            <th>Valor</th>
-            <th>Precio</th>
-            <th>Stock</th>
-            <th>Descripción</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.length > 0 ? (
-            products.map((product) => {
-              const category = categories.find(cat => cat.id === product.categoriaId);
-              return (
-                <tr key={product.id}>
-                  <td>{product.nombre}</td>
-                  <td>{category ? category.nombre : "Sin categoría"}</td>
-                  <td>{product.codigo}</td>
-                  <td>{product.valor}</td>
-                  <td>{product.precio}</td>
-                  <td>{product.stock}</td>
-                  <td>{product.descripcion}</td>
-                  <td>
-                    <button onClick={() => handleEditProduct(product)}>Editar</button>
-                    <button onClick={() => handleDeleteProduct(product.id)}>Eliminar</button>
-                  </td>
-                </tr>
-              );
-            })
-          ) : (
-            <tr>
-              <td colSpan="8">No hay productos agregados.</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-
+      <table className="product-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Código</th>
+            <th>Valor</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {loading ? (
+            <tr>
+              <td colSpan="7">Cargando productos...</td>
+            </tr>
+          ) : products.length > 0 ? (
+            products.map((product) => {
+              const category = categories.find((cat) => cat.id === product.categoriaId);
+              return (
+                <tr key={product.id}>
+                  <td>{product.nombre}</td>
+                  <td>{category ? category.nombre : "Sin categoría"}</td>
+                  <td>{product.codigo}</td>
+                  <td>{product.valor}</td>
+                  <td>{product.precio || "—"}</td>
+                  <td>{product.stock}</td>
+                  <td>
+                    <button onClick={() => handleEditProduct(product)}>Editar</button>
+                    <button onClick={() => handleDeleteProduct(product.id)}>Eliminar</button>
+                  </td>
+                </tr>
+              );
+            })
+          ) : (
+            <tr>
+              <td colSpan="7">No hay productos agregados.</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
 
       {showAddForm && (
         <div className="overlay">
           <AddProductForm
-  onClose={handleCloseAddForm}
-  onOpenCategoryForm={() => setShowCategoryForm(true)}
-  onSave={(productData) => {
-    setProducts((prev) => [...prev, { ...productData, id: Date.now().toString() }]);
-  }}
-  editingProduct={editingProduct}
-/>
-  
+            onClose={handleCloseAddForm}
+            onOpenCategoryForm={() => setShowCategoryForm(true)}
+            onSave={handleSaveProduct}
+            editingProduct={editingProduct}
+            categories={categories}
+          />
         </div>
       )}
 
       {loading && <p>Cargando...</p>}
+      {success && <p className="success-message">{success}</p>}
+      {error && <p className="error-message">{error}</p>}
     </div>
   );
 };
