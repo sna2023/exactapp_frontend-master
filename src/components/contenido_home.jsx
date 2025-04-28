@@ -90,13 +90,14 @@ const ContenidoHome = ({ cargarContenido }) => {
             <h3>Registrar Nuevo Producto</h3>
             <img className="imgproduct" src={productoIcon} alt="Registrar Producto" />
           </button>
-          <button className="cont_agg_producto" onClick={() => setShowVentasForm(true)}>
-            <h3>Haz una nueva venta</h3>
-            <img src={ventasIcon} alt="Venta" />
-          </button>
+          
           <button className="cont_miembros" onClick={() => setShowClienteForm(true)}>
             <h3>Registrar nuevos clientes</h3>
             <img src={clienteIcon} alt="Clientes" />
+          </button>
+          <button className="cont_agg_producto" onClick={() => setShowVentasForm(true)}>
+            <h3>Haz una nueva venta</h3>
+            <img src={ventasIcon} alt="Venta" />
           </button>
         </div>
       </div>
