@@ -145,7 +145,7 @@ const NuevaVenta = ({ cargarContenido }) => {
           <div className="venta-section">
             <h2>Agregar Nueva Venta</h2>
             <div className="form-group">
-              <label>Número de factura</label>
+              <label className="label-fac">Número de factura</label>
               <input
                 type="text"
                 className="Nfactura-input"
@@ -154,7 +154,7 @@ const NuevaVenta = ({ cargarContenido }) => {
               />
             </div>
             <div className="form-group">
-              <label>Fecha</label>
+              <label className="label-fecha">Fecha</label>
               <input
                 type="date"
                 className="fecha-input"
@@ -173,27 +173,7 @@ const NuevaVenta = ({ cargarContenido }) => {
                 +
               </button>
             </div>
-          </div>
-
-          <div className="categorias-section">
-            <h2>Categorías</h2>
-            <div className="categoria-container">
-              {categories.map((cat, index) => (
-                <div key={index} className={`categoria ${cat.nombre.toLowerCase()}`}>
-                  {cat.nombre} <br /> {getItemCountPerCategory(cat.id)}
-                </div>
-              ))}
-              {categories.length === 0 && (
-                <>
-                  <div className="categoria">Categoría <br /> Items</div>
-                  <div className="categoria">Categoría <br /> Items</div>
-                  <div className="categoria">Categoría <br /> Items</div>
-                  <div className="categoria electronica">Electrónica <br /> 3</div>
-                </>
-              )}
-            </div>
-          </div>
-
+            
           <div className="productos-section">
             <h3>
               <em>Productos</em>
@@ -234,6 +214,32 @@ const NuevaVenta = ({ cargarContenido }) => {
               </div>
             )}
           </div>
+
+
+
+
+          </div>
+        <div className="manaa">
+          <div className="categorias-section">
+            <h2>Categorías</h2>
+            <div className="categoria-container">
+              {categories.map((cat, index) => (
+                <div key={index} className={`categoria ${cat.nombre.toLowerCase()}`}>
+                  {cat.nombre} <br /> {getItemCountPerCategory(cat.id)}
+                </div>
+              ))}
+              {categories.length === 0 && (
+                <>
+                  <div className="categoria">Categoría <br /> Items</div>
+                  <div className="categoria">Categoría <br /> Items</div>
+                  <div className="categoria">Categoría <br /> Items</div>
+                  <div className="categoria electronica">Electrónica <br /> 3</div>
+                </>
+              )}
+            </div>
+          </div>
+          </div>
+
 
           {/* Modal flotante de la lista de clientes */}
           {showClientList && (
@@ -287,8 +293,7 @@ const NuevaVenta = ({ cargarContenido }) => {
             </div>
           )}
 
-          {loading && <p>Cargando...</p>}
-          {error && <p className="error-message">Error: {error}</p>}
+          
         </>
       )}
     </div>

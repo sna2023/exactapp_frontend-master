@@ -1,104 +1,168 @@
-/* Estilos generales */
+/* EstiloVentas.css */
+
 .container {
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid purple; /* Reducir el grosor del borde */
-  border-radius: 8px; /* Reducir el radio del borde */
-  margin: 10px; /* Añadir margen alrededor del contenedor */
+  border: 2px solid violet;
+  padding: 10px;
+  border-radius: 10px;
+  font-family: monospace;
+  width: 100%;
+  min-height: 90vh;
 }
 
-.productos-section,
-.categorias-section,
 .venta-section {
-  border: 1px solid purple; /* Reducir el grosor del borde */
+  flex: 1;
+  min-width: 48%;
   padding: 10px;
-  margin: 10px;
-  width: calc(100% - 20px); /* Ocupar todo el ancho en móviles */
-  max-width: 45%; /* Mantener un ancho máximo en pantallas más grandes */
-  border-radius: 6px;
-  box-sizing: border-box; /* Incluir padding y border en el ancho */
-  position: static !important; /* Remover posicionamiento absoluto/relativo innecesario en móviles */
-  top: auto !important;
-  left: auto !important;
-  height: auto; /* Ajustar altura automáticamente */
+  border-right: 1px solid violet;
+}
+.productos-section{
+  position: relative;
+  left: 10px;
+  top: 30px;
+  nav-right: auto;
+  padding: 50px;
+  text-align: centers;
+  border-top: 1px solid violet;
+}
+
+.manaa {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 10px;
 }
 
 .categorias-section {
-  height: auto; /* Ajustar altura automáticamente */
-}
-
-.carrito-button {
-  background-color: purple;
-  color: white; /* Cambiar color del texto para mejor contraste */
-  display: block;
-  width: 80%; /* Ocupar un porcentaje del ancho en móviles */
-  max-width: 200px; /* Mantener un ancho máximo */
-  height: 30px;
-  border: none;
-  cursor: pointer;
-  margin: 15px auto; /* Centrar horizontalmente con margen vertical */
-  border-radius: 5px;
-  position: static !important; /* Remover posicionamiento absoluto/relativo innecesario en móviles */
-  left: auto !important;
-  top: auto !important;
-  font-size: 0.9em; /* Reducir tamaño de la fuente */
-}
-
-h2,
-h3 {
   text-align: center;
-  font-size: 1.2em; /* Reducir tamaño de la fuente */
+  margin-bottom: 20px;
+}
+
+.categoria-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.categoria {
+  border: 2px solid violet;
+  border-radius: 5px;
+  padding: 10px;
+  min-width: 100px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.categoria.electronica {
+  border-color: green;
+  background-color: #d2f8d2;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.fecha-input {
+  padding: 8px;
+  width: 100%;
+  border: 2px solid violet;
+  border-radius: 5px;
+  font-family: monospace;
+  text-align: center;
+  width: 180px;
+  position: relative;
+  left: 50%;
+}
+.Nfactura-input{
+  padding: 8px;
+  width: 100%;
+  border: 2px solid violet;
+  border-radius: 5px;
+  font-family: monospace;
+  text-align: center;
+  width: 180px;
+  position: relative;
+  left: 50%;
+
 }
 
 .cliente-input {
   display: flex;
-  align-items: center;
-  border: 1px solid purple; /* Reducir grosor del borde */
-  width: 100%; /* Ocupar todo el ancho */
-  height: auto; /* Ajustar altura automáticamente */
-  border-radius: 5px;
-  margin-bottom: 10px; /* Añadir margen inferior */
-  position: static !important; /* Remover posicionamiento absoluto/relativo innecesario en móviles */
-  top: auto !important;
+  margin-top: 10px;
 }
 
 .cliente-input input {
-  border: none;
-  width: calc(100% - 60px); /* Ocupar el ancho restante menos el botón */
-  height: 30px;
-  background: transparent;
-  outline: none;
-  padding: 5px;
-  font-size: 0.9em; /* Reducir tamaño de la fuente */
+  flex: 1;
+  padding: 8px;
+  border: 2px solid violet;
+  border-radius: 5px 0 0 5px;
 }
 
 .add-button {
-  background-color: purple;
-  color: white; /* Cambiar color del texto */
+  background-color: violet;
+  color: white;
   border: none;
-  padding: 5px;
+  padding: 0 15px;
+  font-size: 20px;
   cursor: pointer;
-  border-radius: 5px;
-  width: 40px; /* Reducir ancho del botón */
-  height: 30px;
-  font-size: 0.8em; /* Reducir tamaño de la fuente */
-  margin-left: 5px;
+  border-radius: 0 5px 5px 0;
+  transition: background-color 0.3s ease;
 }
 
 .add-button:hover {
-  transform: translateY(-1px);
+  background-color: #a100a1;
 }
 
-.categoria {
-  display: inline-block;
-  padding: 8px; /* Reducir padding */
+
+
+.selected-products {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.product-item {
+  background: #f3f3ff;
+  border: 1px solid violet;
+  padding: 5px;
   margin: 5px;
-  border: 1px solid black;
   border-radius: 5px;
-  font-size: 0.85em; /* Reducir tamaño de la fuente */
+  display: flex;
+  justify-content: space-between;
 }
 
-/* Modal general */
+.remove-button {
+  background-color: rgb(0, 0, 0);
+  color: white;
+  border: none;
+  font-weight: bold;
+  padding: 0 8px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.carrito-button {
+  background-color: violet;
+  color: black;
+  font-weight: bold;
+  font-family: monospace;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.carrito-button:hover {
+  background-color: #a100a1;
+  color: white;
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -106,142 +170,63 @@ h3 {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000; /* Asegurar que esté por encima de otros elementos */
+  z-index: 1000;
 }
 
 .modal {
   background-color: white;
-  padding: 15px; /* Reducir padding */
-  border-radius: 8px; /* Reducir radio del borde */
-  text-align: center;
-  width: 80%; /* Ocupar un porcentaje del ancho en móviles */
-  max-width: 300px; /* Mantener un ancho máximo */
-  position: relative;
-}
-
-.client-list,
-.product-list {
-  max-height: 150px; /* Reducir altura máxima */
+  margin: 100px auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 50%;
+  max-height: 70vh;
   overflow-y: auto;
-}
-
-.client-item,
-.product-item {
-  padding: 8px; /* Reducir padding */
-  border-bottom: 1px solid purple;
-  cursor: pointer;
-  font-size: 0.9em; /* Reducir tamaño de la fuente */
-}
-
-.client-item:hover,
-.product-item:hover {
-  background-color: #f2e6ff;
+  border: 2px solid violet;
+  font-family: monospace;
 }
 
 .close-button {
-  position: absolute;
-  top: 5px; /* Ajustar posición */
-  right: 5px; /* Ajustar posición */
-  background: none;
+  float: right;
+  background: rgba(0, 0, 0, 0);
+  color: rgb(0, 0, 0);
   border: none;
-  font-size: 1.2em; /* Reducir tamaño de la fuente */
+  border-radius: 50%;
+  font-size: 16px;
+  padding: 5px 10px;
   cursor: pointer;
-  color: #555; /* Añadir color para mejor visibilidad */
 }
 
-.Nfactura-input,
-.fecha-input {
-  border: 1px solid purple; /* Reducir grosor del borde */
+.label-fac{
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  position: relative;
+  left: 70px;
+  top: 30px;
+}
+.label-fecha{
+  position: relative;
+  left: 100px;
+  top: 30px;
+}
+.client-item, .product-item {
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid violet;
   border-radius: 5px;
-  width: calc(50% - 15px); /* Ocupar la mitad del ancho con margen */
-  height: 30px;
-  position: static !important; /* Remover posicionamiento absoluto/relativo innecesario en móviles */
-  left: auto !important;
-  top: auto !important;
-  margin-right: 5px;
-  box-sizing: border-box; /* Incluir padding y border en el ancho */
-  font-size: 0.9em; /* Reducir tamaño de la fuente */
+  cursor: pointer;
+  text-align: left;
 }
 
-.venta-section label {
-  position: static !important; /* Remover posicionamiento absoluto/relativo innecesario en móviles */
-  left: auto !important;
-  top: auto !important;
-  display: block; /* Hacer que las etiquetas ocupen una línea */
-  margin-bottom: 5px; /* Añadir margen inferior a las etiquetas */
-  font-size: 0.9em; /* Reducir tamaño de la fuente */
+.client-item:hover, .product-item:hover {
+  background-color: #f0e0ff;
 }
 
-/* Media query para pantallas de teléfono (ancho máximo de 600px) */
-@media (max-width: 600px) {
-  .container {
-    flex-direction: column; /* Apilar elementos verticalmente */
-  }
-
-  .productos-section,
-  .categorias-section,
-  .venta-section {
-    width: calc(100% - 20px); /* Ocupar todo el ancho con margen */
-    max-width: none; /* Remover ancho máximo */
-    top: auto !important; /* Asegurar la posición normal */
-    left: auto !important; /* Asegurar la posición normal */
-    margin: 10px auto; /* Centrar horizontalmente */
-    height: auto; /* Ajustar altura automáticamente */
-  }
-
-  .carrito-button {
-    width: 90%; /* Ocupar más ancho en pantallas pequeñas */
-    margin: 15px auto; /* Centrar */
-  }
-
-  .cliente-input {
-    width: 100%;
-  }
-
-  .Nfactura-input,
-  .fecha-input {
-    width: calc(100% - 10px); /* Ocupar todo el ancho con margen */
-    margin-right: 0;
-    margin-bottom: 5px;
-  }
-}
-
-/* Media query para pantallas aún más pequeñas (ancho máximo de 320px) */
-@media (max-width: 320px) {
-  h2,
-  h3 {
-    font-size: 1em;
-  }
-
-  .categoria {
-    font-size: 0.8em;
-    padding: 6px;
-    margin: 3px;
-  }
-
-  .carrito-button {
-    font-size: 0.8em;
-    padding: 8px;
-  }
-
-  .cliente-input input {
-    font-size: 0.8em;
-  }
-
-  .add-button {
-    font-size: 0.7em;
-    width: 30px;
-  }
-
-  .Nfactura-input,
-  .fecha-input {
-    font-size: 0.8em;
-  }
-
-  .venta-section label {
-    font-size: 0.8em;
-  }
+.test-product {
+  margin-top: 20px;
+  text-align: left;
+  background: #f4f4f4;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
 }

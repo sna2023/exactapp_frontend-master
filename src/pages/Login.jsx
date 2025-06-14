@@ -1,85 +1,62 @@
-import styled from 'styled-components';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext.jsx';
-import Button from '../components/Button.jsx';
-import logo from './logo.png';
+// src/components/Auth.jsx
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../firebase";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-`;
+const Auth = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate(); // 👈 aquí
 
-const Logo = styled.img`
-  width: 100px;
-  margin-bottom: 20px;
-`;
+  const handleRegister = async () => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      setError("");
+      navigate('/dashboard'); // ✅
 
-const Form = styled.form`
-  background-color: #f3e5f5;
-  border: 1px solid #d1c4e9;
-  border-radius: 10px;
-  padding: 20px;
-  width: 300px;
-  text-align: center;
-`;
-
-const Input = styled.input`
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #d1c4e9;
-  border-radius: 5px;
-`;
-
-const ErrorMessage = styled.p`
-  color: red;
-  margin: 10px 0;
-`;
-
-const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const { login } = useAuth();
-  const navigate = useNavigate();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const success = login(username, password);
-    if (success) {
-      navigate('/dashboard'); // Redirige a la pantalla protegida
-    } else {
-      setError('Usuario o contraseña incorrectos');
+    } catch (err) {
+      setError(err.message);
     }
   };
 
+  const handleLogin = async () => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      setError("");
+      navigate("/dashboard"); // 👈 redirige al dashboard
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    navigate("/"); // opcional: volver al login tras logout
+  };
+
   return (
-    <Container>
-      <Logo src={logo} alt="Exact-App Logo" />
-      <Form onSubmit={handleSubmit}>
-        <h2>Iniciar Sesión</h2>
-        <Input
-          type="text"
-          placeholder="Usuario"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <Input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {error && <ErrorMessage>{error}</ErrorMessage>}
-        <Button primary type="submit">
-          Ingresar
-        </Button>
-      </Form>
-    </Container>
+    <div style={{ padding: 20 }}>
+      <h2>Login/Registro</h2>
+
+      <input
+        type="email"
+        placeholder="Correo"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      /><br />
+      <input
+        type="password"
+        placeholder="Contraseña"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      /><br />
+      <button onClick={handleLogin}>Iniciar Sesión</button>
+      <button onClick={handleRegister}>Registrarse</button>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+    </div>
   );
 };
 
-export default Login;
+export default Auth;
